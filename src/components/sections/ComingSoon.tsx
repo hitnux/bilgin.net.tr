@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { StarField } from '@/components/ui/StarField'
+import { Rocket } from '@/components/ui/Rocket'
 
 export default function ComingSoon() {
   const [lang, setLang] = useState<'tr' | 'en'>('tr')
@@ -39,54 +40,45 @@ export default function ComingSoon() {
       </header>
 
       {/* Center content */}
-      <div className="relative z-10 flex-1 flex items-center justify-center text-center px-6">
-        <div>
-          {/* Domain */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="text-[11px] text-white/30 tracking-[0.4em] uppercase mb-8"
-          >
-            bilgin.net.tr
-          </motion.div>
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6">
+        {/* Rocket */}
+        <Rocket />
 
-          {/* Title */}
-          <div className="overflow-hidden">
-            <motion.h1
-              initial={{ y: '110%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-7xl md:text-8xl lg:text-9xl font-medium tracking-[-0.02em] leading-[0.9] text-white font-[family-name:var(--font-comfortaa)]"
-            >
-              Bilgin
-            </motion.h1>
-          </div>
-
-          {/* Coming soon text */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="mt-10"
+        {/* Title */}
+        <div className="overflow-hidden mt-4">
+          <motion.h1
+            initial={{ y: '110%' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="text-7xl md:text-8xl lg:text-9xl font-medium tracking-[-0.02em] leading-[0.9] text-white font-[family-name:var(--font-comfortaa)]"
           >
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={lang}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-                className="text-sm md:text-base text-white/40 font-light font-[family-name:var(--font-comfortaa)]"
-              >
-                {lang === 'tr' ? 'Yakında' : 'Coming Soon'}
-              </motion.p>
-            </AnimatePresence>
-          </motion.div>
+            Bilgin
+          </motion.h1>
         </div>
+
+        {/* Coming soon text — larger */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="mt-6"
+        >
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={lang}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+              className="text-xl md:text-2xl text-white/60 font-light font-[family-name:var(--font-comfortaa)]"
+            >
+              {lang === 'tr' ? 'Yakında' : 'Coming Soon'}
+            </motion.p>
+          </AnimatePresence>
+        </motion.div>
       </div>
 
-      {/* Footer spacer to balance layout */}
+      {/* Footer spacer */}
       <div className="h-16" />
     </main>
   )
