@@ -52,8 +52,8 @@ export default function ComingSoon() {
           <div className="md:hidden absolute left-1/2 -translate-x-1/2" style={{ top: '25%' }}>
             <Rocket />
           </div>
-          {/* Desktop: right side, vertically centered */}
-          <div className="hidden md:block absolute -translate-y-1/2" style={{ right: '18%', top: '50%' }}>
+          {/* Desktop: right side, higher up */}
+          <div className="hidden md:block absolute -translate-y-1/2" style={{ right: '14%', top: '35%' }}>
             <Rocket />
           </div>
         </div>
