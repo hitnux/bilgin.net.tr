@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, useMotionValue, useSpring, useAnimate } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 // SVG rocket pointing up (original vertical design)
 function RocketSvg() {
@@ -42,7 +42,7 @@ export function Rocket() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  // Desktop: mouse-follow offset (layered on top of parabolic flight)
+  // Desktop: mouse-follow offset (layered on top of float animation)
   const offsetX = useMotionValue(0)
   const offsetY = useMotionValue(0)
   const mx = useSpring(offsetX, { stiffness: 60, damping: 15 })
@@ -73,7 +73,7 @@ export function Rocket() {
           animate={{
             y: [0, -14, 4, -10, 0],
             x: [0, 4, -3, 2, 0],
-            rotate: [0, 2, -2, 1, 0],
+            rotate: [-20, -18, -22, -19, -20],
           }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           className="relative flex flex-col items-center"
@@ -86,44 +86,30 @@ export function Rocket() {
     )
   }
 
-  // Desktop: parabolic flight from left to right, rocket tilted along path
+  // Desktop: static tilt (15°), gentle float, mouse-follow
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.3 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
     >
       <motion.div
         style={{ x: mx, y: my }}
         className="relative"
       >
-        <ParabolicFlight />
+        <motion.div
+          animate={{
+            y: [0, -10, 4, -8, 0],
+            rotate: [-20, -18, -22, -19, -20],
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          className="relative flex flex-col items-center"
+        >
+          <RocketSvg />
+          <Flame />
+          <Smoke direction="down" />
+        </motion.div>
       </motion.div>
-    </motion.div>
-  )
-}
-
-// Parabolic loop: small horizontal flight above the title, then loops
-function ParabolicFlight() {
-  return (
-    <motion.div
-      animate={{
-        x: ['-14vw', '0vw', '14vw', '14vw', '-14vw'],
-        y: ['0vh', '-6vh', '0vh', '0vh', '0vh'],
-        rotate: [-8, 0, 8, 8, -8],
-        opacity: [0, 1, 1, 0, 0],
-      }}
-      transition={{
-        duration: 12,
-        repeat: Infinity,
-        ease: 'easeInOut',
-        times: [0, 0.2, 0.5, 0.85, 0.86],
-      }}
-      className="relative flex flex-col items-center"
-    >
-      <RocketSvg />
-      <Flame />
-      <Smoke direction="down" />
     </motion.div>
   )
 }

@@ -46,10 +46,14 @@ export default function ComingSoon() {
 
       {/* Center content */}
       <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 md:px-16">
-        {/* Rocket — parabolic flight on desktop, floating above title on mobile */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* Both: top-center, above title (desktop gets parabolic flight) */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2">
+        {/* Rocket — mobile: top-center 25% down; desktop: right ~18%, both tilted -20° */}
+        <div className="absolute inset-0 z-[2] pointer-events-none">
+          {/* Mobile: top-center, 25% down */}
+          <div className="md:hidden absolute left-1/2 -translate-x-1/2" style={{ top: '25%' }}>
+            <Rocket />
+          </div>
+          {/* Desktop: right side, vertically centered */}
+          <div className="hidden md:block absolute -translate-y-1/2" style={{ right: '18%', top: '50%' }}>
             <Rocket />
           </div>
         </div>
