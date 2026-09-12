@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     'Yazılım ve tasarım çözümleriyle işletmenizin dijital dönüşümünü hızlandırıyoruz.',
 }
 
+const maintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'true'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,9 +27,13 @@ export default function RootLayout({
     <html lang="tr" className="dark">
       <body className={`${comfortaa.variable} antialiased`}>
         <CustomCursor />
-        <Navbar />
+        {!maintenance && (
+          <>
+            <Navbar />
+            <Footer />
+          </>
+        )}
         <main className="min-h-screen">{children}</main>
-        <Footer />
       </body>
     </html>
   )
