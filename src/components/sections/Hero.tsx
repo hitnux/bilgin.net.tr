@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'fram
 import { useRef, useState, useEffect } from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { MagneticButton } from '@/components/ui/MagneticButton'
+import { StarField } from '@/components/ui/StarField'
 
 // Letter-by-letter reveal for the main title
 function AnimatedTitle({ text }: { text: string }) {
@@ -70,6 +71,8 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
       onMouseMove={handleMouseMove}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
+      {/* Star field background */}
+      <StarField />
       {/* Mouse-follow glow */}
       <motion.div
         className="absolute w-[700px] h-[700px] rounded-full pointer-events-none"
