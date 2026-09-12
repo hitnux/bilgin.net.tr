@@ -13,11 +13,7 @@ export default function ComingSoon() {
 
       {/* Header */}
       <header className="relative z-10">
-        <nav className="container mx-auto px-6 py-5 flex items-center justify-between">
-          <span className="text-lg font-semibold tracking-tight font-[family-name:var(--font-comfortaa)]">
-            Bilgin
-          </span>
-
+        <nav className="container mx-auto px-6 py-5 flex items-center justify-end">
           {/* Language toggle */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
