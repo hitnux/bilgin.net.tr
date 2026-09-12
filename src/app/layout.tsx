@@ -25,7 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className="dark">
-      <body className={`${comfortaa.variable} antialiased`}>
+      <body
+        className={`${comfortaa.variable} antialiased`}
+        style={
+          maintenance
+            ? { height: '100vh', overflow: 'hidden', margin: 0 }
+            : undefined
+        }
+      >
         <CustomCursor />
         {!maintenance && (
           <>
