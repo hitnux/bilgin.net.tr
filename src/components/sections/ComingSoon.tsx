@@ -48,8 +48,8 @@ export default function ComingSoon() {
       <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 md:px-16">
         {/* Rocket — mobile: top-center 25% down; desktop: right ~18%, both tilted -20° */}
         <div className="absolute inset-0 z-[2] pointer-events-none">
-          {/* Mobile: top-center, 25% down */}
-          <div className="md:hidden absolute left-1/2 -translate-x-1/2" style={{ top: '25%' }}>
+          {/* Mobile: top-center, 20% down, shifted right */}
+          <div className="md:hidden absolute" style={{ top: '20%', left: '55%' }}>
             <Rocket />
           </div>
           {/* Desktop: right side, higher up */}
