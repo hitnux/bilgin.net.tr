@@ -9,7 +9,10 @@ export default function ComingSoon() {
   const [lang, setLang] = useState<'tr' | 'en'>('tr')
 
   return (
-    <main className="relative h-screen overflow-hidden flex flex-col bg-black">
+    <main
+      className="relative flex flex-col bg-black"
+      style={{ height: 'calc(100vh)', overflow: 'hidden' }}
+    >
       <StarField />
 
       {/* Header */}
