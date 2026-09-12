@@ -1,38 +1,49 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Plus } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
 
 const services = [
   {
     num: '01',
     title: 'Web Geliştirme',
-    description: 'Modern, hızlı ve ölçeklenebilir web uygulamaları.',
+    description:
+      'Next.js, React ve TypeScript ile modern, hızlı ve ölçeklenebilir web uygulamaları. SEO optimizasyonu, performans ve erişilebilirlik odaklı geliştirme.',
+    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind'],
   },
   {
     num: '02',
     title: 'Mobil Uygulama',
-    description: 'iOS ve Android için native deneyimler.',
+    description:
+      'React Native ile iOS ve Android için tek kod tabanından native deneyimler. App Store ve Play Store yayın süreci dahil uçtan uca çözüm.',
+    tags: ['React Native', 'Expo', 'iOS', 'Android'],
   },
   {
     num: '03',
     title: 'UI/UX Tasarım',
-    description: 'Kullanıcı odaklı, minimalist arayüz tasarımı.',
+    description:
+      'Kullanıcı araştırmasından prototipe, wireframe\'den final tasarıma. Figma ile tasarım sistemi kurulumu ve design token yönetimi.',
+    tags: ['Figma', 'Prototip', 'Design System', 'Wireframe'],
   },
   {
     num: '04',
     title: 'Danışmanlık',
-    description: 'Dijital dönüşüm stratejisi ve teknik danışmanlık.',
+    description:
+      'Teknoloji seçimi, mimari kararlar ve dijital dönüşüm stratejisi. Mevcut sistemlerinizi analiz eder, yol haritası çıkarırız.',
+    tags: ['Mimari', 'Strateji', 'Audit', 'Roadmap'],
   },
 ]
 
 export function Services() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
   return (
-    <section id="hizmetler" className="py-28 md:py-40">
+    <section id="hizmetler" className="py-20 md:py-28">
       <div className="container mx-auto px-6">
         <Reveal>
-          <div className="flex items-end justify-between mb-16">
+          <div className="flex items-end justify-between mb-12">
             <div>
               <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-4">
                 Hizmetler
@@ -50,51 +61,77 @@ export function Services() {
         <div className="border-t border-white/10">
           {services.map((service, i) => (
             <Reveal key={service.num} delay={i * 0.05}>
-              <motion.div
-                className="group relative border-b border-white/10 py-10 md:py-14 cursor-default"
-                initial="rest"
-                whileHover="hover"
-              >
-                {/* Hover background wipe */}
-                <motion.div
-                  className="absolute inset-0 bg-white/[0.03]"
-                  variants={{ rest: { scaleX: 0 }, hover: { scaleX: 1 } }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ originX: 0 }}
-                />
+              <div className="border-b border-white/10">
+                <button
+                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                  className="group relative w-full text-left py-8 md:py-10 cursor-none"
+                >
+                  {/* Hover background */}
+                  <motion.div
+                    className="absolute inset-0 bg-white/[0.02]"
+                    initial={{ scaleX: 0 }}
+                    animate={{
+                      scaleX: openIndex === i ? 1 : 0,
+                    }}
+                    whileHover={{ scaleX: openIndex === i ? 1 : 0.5 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ originX: 0 }}
+                  />
 
-                <div className="relative flex items-center justify-between gap-6">
-                  <div className="flex items-baseline gap-6 md:gap-12">
-                    <span className="text-[11px] text-white/25 font-mono">
-                      {service.num}
-                    </span>
-                    <h3 className="text-2xl md:text-4xl font-medium tracking-tight text-white/90 group-hover:text-white transition-colors">
-                      {service.title}
-                    </h3>
-                  </div>
+                  <div className="relative flex items-center justify-between gap-6">
+                    <div className="flex items-baseline gap-6 md:gap-12">
+                      <span className="text-[11px] text-white/25 font-mono">
+                        {service.num}
+                      </span>
+                      <h3
+                        className={`text-2xl md:text-4xl font-medium tracking-tight transition-colors ${
+                          openIndex === i
+                            ? 'text-white'
+                            : 'text-white/70 group-hover:text-white'
+                        }`}
+                      >
+                        {service.title}
+                      </h3>
+                    </div>
 
-                  <div className="flex items-center gap-8">
-                    <p className="hidden md:block text-sm text-white/40 max-w-xs text-right">
-                      {service.description}
-                    </p>
                     <motion.div
-                      variants={{
-                        rest: { rotate: 0, opacity: 0.3 },
-                        hover: { rotate: 45, opacity: 1 },
-                      }}
+                      animate={{ rotate: openIndex === i ? 45 : 0 }}
                       transition={{ duration: 0.3 }}
-                      className="shrink-0"
+                      className="shrink-0 w-10 h-10 rounded-full border border-white/15 flex items-center justify-center group-hover:border-white/40 transition-colors"
                     >
-                      <ArrowUpRight className="h-6 w-6 text-white" />
+                      <Plus className="h-4 w-4 text-white/60" />
                     </motion.div>
                   </div>
-                </div>
+                </button>
 
-                {/* Mobile description */}
-                <p className="md:hidden relative mt-3 ml-12 text-sm text-white/40">
-                  {service.description}
-                </p>
-              </motion.div>
+                <AnimatePresence initial={false}>
+                  {openIndex === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pb-10 pl-12 md:pl-24 pr-6">
+                        <p className="text-sm md:text-base text-white/50 leading-relaxed max-w-2xl">
+                          {service.description}
+                        </p>
+                        <div className="mt-5 flex flex-wrap gap-2">
+                          {service.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-3 py-1.5 text-[11px] rounded-full border border-white/10 text-white/40"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </Reveal>
           ))}
         </div>
