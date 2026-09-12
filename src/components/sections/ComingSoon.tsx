@@ -9,7 +9,7 @@ export default function ComingSoon() {
   const [lang, setLang] = useState<'tr' | 'en'>('tr')
 
   return (
-    <main className="relative min-h-screen flex flex-col overflow-hidden bg-black">
+    <main className="relative h-screen overflow-hidden flex flex-col bg-black">
       <StarField />
 
       {/* Header */}
@@ -42,8 +42,13 @@ export default function ComingSoon() {
       {/* Center content */}
       <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 md:px-16">
         {/* Rocket — flies left-to-right on desktop, bottom-to-top on mobile */}
-        <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center md:justify-end">
-          <div className="relative md:-mr-10 md:-mt-24">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {/* Mobile: top-center, above title */}
+          <div className="md:hidden absolute top-4 left-1/2 -translate-x-1/2">
+            <Rocket />
+          </div>
+          {/* Desktop: right side, vertically centered */}
+          <div className="hidden md:flex absolute right-[4%] top-1/2 -translate-y-1/2">
             <Rocket />
           </div>
         </div>
