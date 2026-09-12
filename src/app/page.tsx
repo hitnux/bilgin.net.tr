@@ -1,5 +1,4 @@
-'use client'
-
+import ComingSoon from '@/components/sections/ComingSoon'
 import { Hero } from '@/components/sections/Hero'
 import { Marquee } from '@/components/sections/Marquee'
 import { Services } from '@/components/sections/Services'
@@ -9,7 +8,13 @@ import { About } from '@/components/sections/About'
 import { Testimonial } from '@/components/sections/Testimonial'
 import { Contact } from '@/components/sections/Contact'
 
-export default function Home() {
+export default function Page() {
+  const maintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'true'
+
+  if (maintenance) {
+    return <ComingSoon />
+  }
+
   return (
     <>
       <Hero font="comfortaa" />
