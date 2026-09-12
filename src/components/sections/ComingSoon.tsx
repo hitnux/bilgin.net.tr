@@ -40,10 +40,12 @@ export default function ComingSoon() {
       </header>
 
       {/* Center content */}
-      <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 md:flex-row md:gap-10 md:px-16">
-        {/* Rocket — right side on desktop, behind text */}
-        <div className="order-first md:order-last md:absolute md:right-[8%] md:top-1/2 md:-translate-y-1/2 z-0 pointer-events-none">
-          <Rocket />
+      <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 md:px-16">
+        {/* Rocket — flies left-to-right on desktop, bottom-to-top on mobile */}
+        <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center md:justify-end">
+          <div className="relative md:-mr-10 md:-mt-24">
+            <Rocket />
+          </div>
         </div>
 
         <div className="flex flex-col items-center relative z-10">
@@ -73,7 +75,7 @@ export default function ComingSoon() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4 }}
-                className="text-xl md:text-2xl text-white/60 font-light font-[family-name:var(--font-comfortaa)]"
+                className="text-3xl md:text-4xl text-white/70 font-light font-[family-name:var(--font-comfortaa)]"
               >
                 {lang === 'tr' ? 'Yakında' : 'Coming Soon'}
               </motion.p>

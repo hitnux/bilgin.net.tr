@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
-// SVG rocket with exhaust flame and smoke
+// SVG rocket pointing right (desktop) — rotated 90° from vertical design
 function RocketSvg() {
   return (
     <svg
@@ -11,9 +11,9 @@ function RocketSvg() {
       height="100"
       viewBox="0 0 64 64"
       fill="none"
-      className="drop-shadow-[0_0_16px_rgba(255,255,255,0.15)] md:w-[180px] md:h-[180px]"
+      className="drop-shadow-[0_0_20px_rgba(255,255,255,0.15)] md:w-[300px] md:h-[300px]"
     >
-      {/* Body */}
+      {/* Body — pointing up in viewBox coords, rotated by parent */}
       <path
         d="M32 4C38 10 42 20 42 30C42 36 40 42 38 46H26C24 42 22 36 22 30C22 20 26 10 32 4Z"
         fill="white"
@@ -55,10 +55,9 @@ export function Rocket() {
     const handleMouse = (e: MouseEvent) => {
       const nx = e.clientX / window.innerWidth - 0.5
       const ny = e.clientY / window.innerHeight - 0.5
-      rocketX.set(nx * 80)
-      rocketY.set(ny * 50)
-      // Tilt rocket toward movement direction
-      rotate.set(nx * 12)
+      rocketX.set(nx * 100)
+      rocketY.set(ny * 60)
+      rotate.set(nx * 10)
     }
     window.addEventListener('mousemove', handleMouse)
     return () => window.removeEventListener('mousemove', handleMouse)
@@ -67,8 +66,8 @@ export function Rocket() {
   return (
     <motion.div
       className="relative"
-      initial={{ opacity: 0, y: 30, scale: 0.8 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
     >
       <motion.div
@@ -76,7 +75,7 @@ export function Rocket() {
         animate={
           isMobile
             ? {
-                y: [0, -12, 4, -8, 0],
+                y: [0, -14, 4, -10, 0],
                 x: [0, 4, -3, 2, 0],
                 rotate: [0, 2, -2, 1, 0],
               }
@@ -87,53 +86,72 @@ export function Rocket() {
             ? { duration: 5, repeat: Infinity, ease: 'easeInOut' }
             : undefined
         }
-        className="relative flex flex-col items-center"
+        className="relative"
       >
-        {/* Rocket body */}
-        <RocketSvg />
+        {/* Wrapper: rocket points RIGHT on desktop (rotate 90°), UP on mobile (0°) */}
+        <div className="rotate-0 md:rotate-90 flex items-center justify-center">
+          <div className="flex flex-col items-center">
+            <RocketSvg />
 
-        {/* Flame */}
-        <motion.div
-          className="w-3 -mt-1 origin-top"
-          animate={{
-            scaleY: [1, 1.4, 0.8, 1.2, 1],
-            scaleX: [1, 0.85, 1.1, 0.9, 1],
-            opacity: [0.9, 1, 0.85, 1, 0.9],
-          }}
-          transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <svg width="12" height="24" viewBox="0 0 12 24" fill="none">
-            <path
-              d="M6 0C8 6 10 10 6 24C2 10 4 6 6 0Z"
-              fill="url(#flame)"
-            />
-            <defs>
-              <linearGradient id="flame" x1="6" y1="0" x2="6" y2="24">
-                <stop offset="0%" stopColor="#fff" />
-                <stop offset="40%" stopColor="#fbbf24" />
-                <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </motion.div>
+            {/* Flame — below nozzle */}
+            <motion.div
+              className="w-4 -mt-1 origin-top md:w-6"
+              animate={{
+                scaleY: [1, 1.4, 0.8, 1.2, 1],
+                scaleX: [1, 0.85, 1.1, 0.9, 1],
+                opacity: [0.9, 1, 0.85, 1, 0.9],
+              }}
+              transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <svg width="12" height="24" viewBox="0 0 12 24" fill="none" className="md:w-5 md:h-10">
+                <path
+                  d="M6 0C8 6 10 10 6 24C2 10 4 6 6 0Z"
+                  fill="url(#flame)"
+                />
+                <defs>
+                  <linearGradient id="flame" x1="6" y1="0" x2="6" y2="24">
+                    <stop offset="0%" stopColor="#fff" />
+                    <stop offset="40%" stopColor="#fbbf24" />
+                    <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </motion.div>
+          </div>
+        </div>
 
-        {/* Smoke puffs */}
-        {[...Array(5)].map((_, i) => (
+        {/* Smoke puffs — trail behind (left on desktop, below on mobile) */}
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-white/[0.12] blur-[2px]"
-            style={{ top: '100%', width: 10 + i * 4, height: 10 + i * 4 }}
-            animate={{
-              y: [0, 30 + i * 12],
-              x: [(i - 2) * 4, (i - 2) * 10],
-              opacity: [0.5, 0],
-              scale: [1, 2],
+            className="absolute rounded-full bg-white/[0.12] blur-[3px]"
+            style={{
+              // Desktop: trail extends to the LEFT of rocket; mobile: below
+              right: '60%',
+              top: '50%',
+              width: 14 + i * 5,
+              height: 14 + i * 5,
             }}
+            animate={
+              isMobile
+                ? {
+                    y: [0, 40 + i * 15],
+                    x: [(i - 2) * 6, (i - 2) * 14],
+                    opacity: [0.5, 0],
+                    scale: [1, 2.2],
+                  }
+                : {
+                    x: [0, -(60 + i * 25)],
+                    y: [(i - 2) * 8, (i - 2) * 20],
+                    opacity: [0.5, 0],
+                    scale: [1, 2.5],
+                  }
+            }
             transition={{
-              duration: 2 + i * 0.3,
+              duration: 2.2 + i * 0.3,
               repeat: Infinity,
               ease: 'easeOut',
-              delay: i * 0.35,
+              delay: i * 0.3,
             }}
           />
         ))}
