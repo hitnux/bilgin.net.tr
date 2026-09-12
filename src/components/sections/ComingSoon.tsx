@@ -41,14 +41,14 @@ export default function ComingSoon() {
 
       {/* Center content */}
       <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 md:px-16">
-        {/* Rocket — flies left-to-right on desktop, bottom-to-top on mobile */}
+        {/* Rocket — parabolic flight on desktop, floating above title on mobile */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           {/* Mobile: top-center, above title */}
           <div className="md:hidden absolute top-4 left-1/2 -translate-x-1/2">
             <Rocket />
           </div>
-          {/* Desktop: right side, vertically centered */}
-          <div className="hidden md:flex absolute right-[4%] top-1/2 -translate-y-1/2">
+          {/* Desktop: left side, vertically centered, pointing up */}
+          <div className="hidden md:block absolute left-[6%] top-1/2 -translate-y-1/2">
             <Rocket />
           </div>
         </div>

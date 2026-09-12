@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useAnimate } from 'framer-motion'
 
-// SVG rocket pointing right (desktop) — rotated 90° from vertical design
+// SVG rocket pointing up (original vertical design)
 function RocketSvg() {
   return (
     <svg
@@ -13,7 +13,7 @@ function RocketSvg() {
       fill="none"
       className="drop-shadow-[0_0_20px_rgba(255,255,255,0.15)] md:w-[300px] md:h-[300px]"
     >
-      {/* Body — pointing up in viewBox coords, rotated by parent */}
+      {/* Body */}
       <path
         d="M32 4C38 10 42 20 42 30C42 36 40 42 38 46H26C24 42 22 36 22 30C22 20 26 10 32 4Z"
         fill="white"
@@ -42,12 +42,11 @@ export function Rocket() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  // Desktop: mouse-follow with springs
-  const rocketX = useMotionValue(0)
-  const rocketY = useMotionValue(0)
-  const x = useSpring(rocketX, { stiffness: 60, damping: 15 })
-  const y = useSpring(rocketY, { stiffness: 60, damping: 15 })
-  const rotate = useSpring(0, { stiffness: 80, damping: 15 })
+  // Desktop: mouse-follow offset (layered on top of parabolic flight)
+  const offsetX = useMotionValue(0)
+  const offsetY = useMotionValue(0)
+  const mx = useSpring(offsetX, { stiffness: 60, damping: 15 })
+  const my = useSpring(offsetY, { stiffness: 60, damping: 15 })
 
   useEffect(() => {
     if (isMobile) return
@@ -55,107 +54,146 @@ export function Rocket() {
     const handleMouse = (e: MouseEvent) => {
       const nx = e.clientX / window.innerWidth - 0.5
       const ny = e.clientY / window.innerHeight - 0.5
-      rocketX.set(nx * 100)
-      rocketY.set(ny * 60)
-      rotate.set(nx * 10)
+      offsetX.set(nx * 60)
+      offsetY.set(ny * 40)
     }
     window.addEventListener('mousemove', handleMouse)
     return () => window.removeEventListener('mousemove', handleMouse)
-  }, [isMobile, rocketX, rocketY, rotate])
+  }, [isMobile, offsetX, offsetY])
 
+  if (isMobile) {
+    // Mobile: gentle float, pointing up
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.8 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <motion.div
+          animate={{
+            y: [0, -14, 4, -10, 0],
+            x: [0, 4, -3, 2, 0],
+            rotate: [0, 2, -2, 1, 0],
+          }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+          className="relative flex flex-col items-center"
+        >
+          <RocketSvg />
+          <Flame />
+          <Smoke direction="down" />
+        </motion.div>
+      </motion.div>
+    )
+  }
+
+  // Desktop: parabolic flight from left to right, rocket tilted along path
   return (
     <motion.div
-      className="relative"
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 0.3 }}
     >
       <motion.div
-        style={isMobile ? undefined : { x, y, rotate }}
-        animate={
-          isMobile
-            ? {
-                y: [0, -14, 4, -10, 0],
-                x: [0, 4, -3, 2, 0],
-                rotate: [0, 2, -2, 1, 0],
-              }
-            : undefined
-        }
-        transition={
-          isMobile
-            ? { duration: 5, repeat: Infinity, ease: 'easeInOut' }
-            : undefined
-        }
+        style={{ x: mx, y: my }}
         className="relative"
       >
-        {/* Wrapper: rocket points RIGHT on desktop (rotate 90°), UP on mobile (0°) */}
-        <div className="rotate-0 md:rotate-90 flex items-center justify-center">
-          <div className="flex flex-col items-center">
-            <RocketSvg />
-
-            {/* Flame — below nozzle */}
-            <motion.div
-              className="w-4 -mt-1 origin-top md:w-6"
-              animate={{
-                scaleY: [1, 1.4, 0.8, 1.2, 1],
-                scaleX: [1, 0.85, 1.1, 0.9, 1],
-                opacity: [0.9, 1, 0.85, 1, 0.9],
-              }}
-              transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <svg width="12" height="24" viewBox="0 0 12 24" fill="none" className="md:w-5 md:h-10">
-                <path
-                  d="M6 0C8 6 10 10 6 24C2 10 4 6 6 0Z"
-                  fill="url(#flame)"
-                />
-                <defs>
-                  <linearGradient id="flame" x1="6" y1="0" x2="6" y2="24">
-                    <stop offset="0%" stopColor="#fff" />
-                    <stop offset="40%" stopColor="#fbbf24" />
-                    <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Smoke puffs — trail behind (left on desktop, below on mobile) */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-white/[0.12] blur-[3px]"
-            style={{
-              // Desktop: trail extends to the LEFT of rocket; mobile: below
-              right: '60%',
-              top: '50%',
-              width: 14 + i * 5,
-              height: 14 + i * 5,
-            }}
-            animate={
-              isMobile
-                ? {
-                    y: [0, 40 + i * 15],
-                    x: [(i - 2) * 6, (i - 2) * 14],
-                    opacity: [0.5, 0],
-                    scale: [1, 2.2],
-                  }
-                : {
-                    x: [0, -(60 + i * 25)],
-                    y: [(i - 2) * 8, (i - 2) * 20],
-                    opacity: [0.5, 0],
-                    scale: [1, 2.5],
-                  }
-            }
-            transition={{
-              duration: 2.2 + i * 0.3,
-              repeat: Infinity,
-              ease: 'easeOut',
-              delay: i * 0.3,
-            }}
-          />
-        ))}
+        <ParabolicFlight />
       </motion.div>
     </motion.div>
+  )
+}
+
+// Parabolic loop: flies from bottom-left up over an arc and exits right, then repeats
+function ParabolicFlight() {
+  return (
+    <motion.div
+      animate={{
+        x: ['0vw', '30vw', '55vw', '75vw', '75vw', '0vw'],
+        y: ['0vh', '-18vh', '-24vh', '-10vh', '0vh', '0vh'],
+        rotate: [12, 5, 0, -5, -8, 12],
+        opacity: [1, 1, 1, 1, 0, 0],
+      }}
+      transition={{
+        duration: 14,
+        repeat: Infinity,
+        ease: 'easeInOut',
+        times: [0, 0.25, 0.45, 0.65, 0.8, 0.81],
+      }}
+      className="relative flex flex-col items-center"
+    >
+      <RocketSvg />
+      <Flame />
+      <Smoke direction="down" />
+    </motion.div>
+  )
+}
+
+function Flame() {
+  return (
+    <motion.div
+      className="w-4 -mt-1 origin-top md:w-6"
+      animate={{
+        scaleY: [1, 1.4, 0.8, 1.2, 1],
+        scaleX: [1, 0.85, 1.1, 0.9, 1],
+        opacity: [0.9, 1, 0.85, 1, 0.9],
+      }}
+      transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <svg width="12" height="24" viewBox="0 0 12 24" fill="none" className="md:w-5 md:h-10">
+        <path
+          d="M6 0C8 6 10 10 6 24C2 10 4 6 6 0Z"
+          fill="url(#flame)"
+        />
+        <defs>
+          <linearGradient id="flame" x1="6" y1="0" x2="6" y2="24">
+            <stop offset="0%" stopColor="#fff" />
+            <stop offset="40%" stopColor="#fbbf24" />
+            <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </motion.div>
+  )
+}
+
+function Smoke({ direction }: { direction: 'down' | 'left' }) {
+  return (
+    <>
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full bg-white/[0.12] blur-[3px]"
+          style={{
+            left: direction === 'down' ? '50%' : 'auto',
+            right: direction === 'left' ? '60%' : 'auto',
+            top: direction === 'down' ? '95%' : '50%',
+            translateX: direction === 'down' ? '-50%' : 0,
+            width: 14 + i * 5,
+            height: 14 + i * 5,
+          }}
+          animate={
+            direction === 'down'
+              ? {
+                  y: [0, 40 + i * 15],
+                  x: [(i - 2) * 6, (i - 2) * 14],
+                  opacity: [0.5, 0],
+                  scale: [1, 2.2],
+                }
+              : {
+                  x: [0, -(60 + i * 25)],
+                  y: [(i - 2) * 8, (i - 2) * 20],
+                  opacity: [0.5, 0],
+                  scale: [1, 2.5],
+                }
+          }
+          transition={{
+            duration: 2.2 + i * 0.3,
+            repeat: Infinity,
+            ease: 'easeOut',
+            delay: i * 0.3,
+          }}
+        />
+      ))}
+    </>
   )
 }
