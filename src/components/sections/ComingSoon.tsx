@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { StarField } from '@/components/ui/StarField'
+import { Moon } from '@/components/ui/Moon'
 import { Rocket } from '@/components/ui/Rocket'
 
 export default function ComingSoon() {
@@ -14,6 +15,7 @@ export default function ComingSoon() {
       style={{ height: 'calc(100vh)', overflow: 'hidden' }}
     >
       <StarField />
+      <Moon />
 
       {/* Header */}
       <header className="relative z-10">
