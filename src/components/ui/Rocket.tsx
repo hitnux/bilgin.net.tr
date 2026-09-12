@@ -7,11 +7,11 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 function RocketSvg() {
   return (
     <svg
-      width="72"
-      height="72"
+      width="80"
+      height="80"
       viewBox="0 0 64 64"
       fill="none"
-      className="drop-shadow-[0_0_12px_rgba(255,255,255,0.15)]"
+      className="drop-shadow-[0_0_12px_rgba(255,255,255,0.15)] md:w-[120px] md:h-[120px]"
     >
       {/* Body */}
       <path
