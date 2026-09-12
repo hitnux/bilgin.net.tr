@@ -1,17 +1,33 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import { MagneticButton } from '@/components/ui/MagneticButton'
 import { Reveal } from '@/components/ui/Reveal'
 
 export function Contact() {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
+
+  const scale = useTransform(scrollYProgress, [0.3, 0.6], [0.92, 1])
+  const opacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1])
+
   return (
-    <section
-      id="iletisim"
-      className="py-32 md:py-48 border-t border-white/10"
-    >
-      <div className="container mx-auto px-6 text-center">
+    <section ref={ref} id="iletisim" className="py-32 md:py-40 border-t border-white/10 relative overflow-hidden">
+      {/* Animated background glow */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 65%)',
+          scale: useTransform(scrollYProgress, [0.3, 0.8], [0.5, 1.2]),
+        }}
+      />
+
+      <motion.div style={{ scale, opacity }} className="container mx-auto px-6 text-center relative">
         <Reveal>
           <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-6">
             İletişim
@@ -32,17 +48,30 @@ export function Contact() {
 
         <Reveal delay={0.3}>
           <div className="mt-12">
-            <MagneticButton strength={0.1}>
+            <MagneticButton strength={0.15}>
               <motion.a
                 href="mailto:mail@bilgin.net.tr"
-                className="group inline-flex items-center gap-4 px-10 py-5 rounded-full border border-white/15 hover:border-white/40 transition-colors duration-300"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="group relative inline-flex items-center gap-4 px-10 py-5 rounded-full border border-white/15 transition-colors duration-300 overflow-hidden"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
               >
-                <span className="text-base md:text-lg font-medium">
+                {/* Shine sweep on hover */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                />
+                <span className="relative text-base md:text-lg font-medium">
                   mail@bilgin.net.tr
                 </span>
-                <ArrowUpRight className="h-4 w-4 text-white/40 group-hover:text-white transition-colors" />
+                <motion.span
+                  className="relative"
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  →
+                </motion.span>
               </motion.a>
             </MagneticButton>
           </div>
@@ -53,7 +82,7 @@ export function Contact() {
             Burdur, Türkiye
           </p>
         </Reveal>
-      </div>
+      </motion.div>
     </section>
   )
 }
