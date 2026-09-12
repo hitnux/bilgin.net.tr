@@ -40,13 +40,13 @@ export default function ComingSoon() {
       </header>
 
       {/* Center content */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 md:flex-row md:gap-16 md:px-16">
-        {/* Rocket — right side on desktop */}
-        <div className="order-first md:order-last">
+      <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 md:flex-row md:gap-10 md:px-16">
+        {/* Rocket — right side on desktop, behind text */}
+        <div className="order-first md:order-last md:absolute md:right-[8%] md:top-1/2 md:-translate-y-1/2 z-0 pointer-events-none">
           <Rocket />
         </div>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center relative z-10">
           {/* Title */}
           <div className="overflow-hidden mt-4">
             <motion.h1
