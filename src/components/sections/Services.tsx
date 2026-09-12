@@ -1,91 +1,103 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Globe, Code, Smartphone, Palette } from 'lucide-react'
-import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { ArrowUpRight } from 'lucide-react'
+import { Reveal } from '@/components/ui/Reveal'
 
 const services = [
   {
-    icon: Globe,
-    title: 'Web Tasarım',
-    description:
-      'Modern, responsive ve kullanıcı dostu web siteleri tasarlıyoruz. Markanızı dijital dünyada en iyi şekilde temsil ediyoruz.',
+    num: '01',
+    title: 'Web Geliştirme',
+    description: 'Modern, hızlı ve ölçeklenebilir web uygulamaları.',
   },
   {
-    icon: Code,
-    title: 'Yazılım Geliştirme',
-    description:
-      'İhtiyaçlarınıza özel yazılım çözümleri geliştiriyoruz. Web uygulamaları, API\'ler ve entegrasyonlar.',
-  },
-  {
-    icon: Smartphone,
+    num: '02',
     title: 'Mobil Uygulama',
-    description:
-      'iOS ve Android için native veya cross-platform mobil uygulamalar geliştiriyoruz.',
+    description: 'iOS ve Android için native deneyimler.',
   },
   {
-    icon: Palette,
+    num: '03',
     title: 'UI/UX Tasarım',
-    description:
-      'Kullanıcı deneyimini ön planda tutarak intuitif ve estetik arayüzler tasarlıyoruz.',
+    description: 'Kullanıcı odaklı, minimalist arayüz tasarımı.',
+  },
+  {
+    num: '04',
+    title: 'Danışmanlık',
+    description: 'Dijital dönüşüm stratejisi ve teknik danışmanlık.',
   },
 ]
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
-}
-
 export function Services() {
   return (
-    <section id="hizmetler" className="py-24 md:py-32">
+    <section id="hizmetler" className="py-28 md:py-40">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="text-sm text-muted-foreground tracking-[0.2em] uppercase mb-4">
-            Hizmetlerimiz
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Dijital çözümler
-          </h2>
-        </motion.div>
+        <Reveal>
+          <div className="flex items-end justify-between mb-16">
+            <div>
+              <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-4">
+                Hizmetler
+              </p>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
+                Ne yapıyoruz
+              </h2>
+            </div>
+            <span className="text-xs text-white/25 hidden md:block">
+              (04)
+            </span>
+          </div>
+        </Reveal>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {services.map((service) => (
-            <motion.div key={service.title} variants={item}>
-              <Card className="bg-muted/50 border-border hover:border-muted-foreground/30 transition-colors h-full">
-                <CardHeader>
-                  <service.icon className="h-8 w-8 mb-4 text-foreground" />
-                  <CardTitle className="text-lg">{service.title}</CardTitle>
-                  <CardDescription className="text-muted-foreground">
-                    {service.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </motion.div>
+        <div className="border-t border-white/10">
+          {services.map((service, i) => (
+            <Reveal key={service.num} delay={i * 0.05}>
+              <motion.div
+                className="group relative border-b border-white/10 py-10 md:py-14 cursor-default"
+                initial="rest"
+                whileHover="hover"
+              >
+                {/* Hover background wipe */}
+                <motion.div
+                  className="absolute inset-0 bg-white/[0.03]"
+                  variants={{ rest: { scaleX: 0 }, hover: { scaleX: 1 } }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ originX: 0 }}
+                />
+
+                <div className="relative flex items-center justify-between gap-6">
+                  <div className="flex items-baseline gap-6 md:gap-12">
+                    <span className="text-[11px] text-white/25 font-mono">
+                      {service.num}
+                    </span>
+                    <h3 className="text-2xl md:text-4xl font-medium tracking-tight text-white/90 group-hover:text-white transition-colors">
+                      {service.title}
+                    </h3>
+                  </div>
+
+                  <div className="flex items-center gap-8">
+                    <p className="hidden md:block text-sm text-white/40 max-w-xs text-right">
+                      {service.description}
+                    </p>
+                    <motion.div
+                      variants={{
+                        rest: { rotate: 0, opacity: 0.3 },
+                        hover: { rotate: 45, opacity: 1 },
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="shrink-0"
+                    >
+                      <ArrowUpRight className="h-6 w-6 text-white" />
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Mobile description */}
+                <p className="md:hidden relative mt-3 ml-12 text-sm text-white/40">
+                  {service.description}
+                </p>
+              </motion.div>
+            </Reveal>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

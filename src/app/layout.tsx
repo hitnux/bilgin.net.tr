@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Comfortaa } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
+import { CustomCursor } from '@/components/ui/CustomCursor'
 
-const inter = Inter({
+const comfortaa = Comfortaa({
   subsets: ['latin'],
   variable: '--font-sans',
 })
 
 export const metadata: Metadata = {
-  title: 'Bilgin Yazılım ve Tasarım',
+  title: 'Bilgin',
   description:
     'Yazılım ve tasarım çözümleriyle işletmenizin dijital dönüşümünü hızlandırıyoruz.',
 }
@@ -22,7 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className="dark">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${comfortaa.variable} antialiased`}>
+        <CustomCursor />
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />

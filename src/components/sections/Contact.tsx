@@ -1,46 +1,58 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Mail } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import { MagneticButton } from '@/components/ui/MagneticButton'
+import { Reveal } from '@/components/ui/Reveal'
 
 export function Contact() {
   return (
-    <section id="iletisim" className="py-24 md:py-32 bg-muted/20">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-xl mx-auto"
-        >
-          <p className="text-sm text-muted-foreground tracking-[0.2em] uppercase mb-4">
+    <section
+      id="iletisim"
+      className="py-32 md:py-48 border-t border-white/10"
+    >
+      <div className="container mx-auto px-6 text-center">
+        <Reveal>
+          <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-6">
             İletişim
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Birlikte çalışalım
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-white/90 max-w-2xl mx-auto leading-tight">
+            Bir projeniz mi var?
           </h2>
-          <p className="text-muted-foreground leading-relaxed mb-8">
-            Bir projeniz mi var? Fikirlerinizi hayata geçirmek için
-            bize ulaşın.
+        </Reveal>
+
+        <Reveal delay={0.2}>
+          <p className="mt-6 text-sm text-white/40 max-w-md mx-auto">
+            Fikrinizi dinleyelim. Genellikle 24 saat içinde dönüş yapıyoruz.
           </p>
+        </Reveal>
 
-          <motion.a
-            href="mailto:mail@bilgin.net.tr"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="inline-flex items-center gap-3 px-8 py-4 border border-border rounded-lg hover:bg-muted transition-colors group"
-          >
-            <Mail className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-            <span className="text-lg font-medium">mail@bilgin.net.tr</span>
-          </motion.a>
+        <Reveal delay={0.3}>
+          <div className="mt-12">
+            <MagneticButton strength={0.1}>
+              <motion.a
+                href="mailto:mail@bilgin.net.tr"
+                className="group inline-flex items-center gap-4 px-10 py-5 rounded-full border border-white/15 hover:border-white/40 transition-colors duration-300"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="text-base md:text-lg font-medium">
+                  mail@bilgin.net.tr
+                </span>
+                <ArrowUpRight className="h-4 w-4 text-white/40 group-hover:text-white transition-colors" />
+              </motion.a>
+            </MagneticButton>
+          </div>
+        </Reveal>
 
-          <p className="mt-6 text-sm text-muted-foreground">
+        <Reveal delay={0.4}>
+          <p className="mt-16 text-[11px] text-white/25 tracking-[0.2em] uppercase">
             Burdur, Türkiye
           </p>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   )

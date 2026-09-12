@@ -1,70 +1,57 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Award, Users, Coffee, Zap } from 'lucide-react'
+import { Reveal } from '@/components/ui/Reveal'
+import { CountUp } from '@/components/ui/CountUp'
 
 const stats = [
-  { icon: Award, value: '5+', label: 'Yıl Deneyim' },
-  { icon: Users, value: '50+', label: 'Mutlu Müşteri' },
-  { icon: Coffee, value: '100+', label: 'Tamamlanan Proje' },
-  { icon: Zap, value: '7/24', label: 'Destek' },
+  { value: 5, suffix: '+', label: 'Yıl' },
+  { value: 50, suffix: '+', label: 'Müşteri' },
+  { value: 100, suffix: '+', label: 'Proje' },
 ]
 
 export function About() {
   return (
-    <section id="hakkinda" className="py-24 md:py-32">
+    <section id="hakkinda" className="py-28 md:py-40 border-t border-white/10">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-sm text-muted-foreground tracking-[0.2em] uppercase mb-4">
-              Hakkımızda
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Teknolojiyi sanata dönüştürüyoruz
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Bilgin Yazılım ve Tasarım olarak, işletmelerin dijital
-              ihtiyaçlarını modern ve yenilikçi çözümlerle karşılıyoruz.
-              Deneyimli ekibimizle her projede mükemmelliği hedefliyoruz.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Müşterilerimizin başarısı bizim başarımızdır. Her projede
-              yakın iş birliği, şeffaf iletişim ve zamanında teslimat
-              prensiplerine bağlı kalıyoruz.
-            </p>
-          </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Left - label */}
+          <div className="lg:col-span-3">
+            <Reveal>
+              <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase">
+                Hakkında
+              </p>
+            </Reveal>
+          </div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-2 gap-6"
-          >
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                className="p-6 border border-border rounded-lg hover:border-muted-foreground/30 transition-colors"
-              >
-                <stat.icon className="h-6 w-6 mb-3 text-muted-foreground" />
-                <div className="text-3xl font-bold mb-1">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+          {/* Right - content */}
+          <div className="lg:col-span-9">
+            <Reveal delay={0.1}>
+              <p className="text-2xl md:text-4xl font-light leading-snug tracking-tight text-white/90 max-w-3xl">
+                Dijital ürünler tasarlıyor ve geliştiriyoruz.
+                <span className="text-white/40">
+                  {' '}
+                  Basitlik karmaşıklığın en yüksek hâlidir — işimizi bu
+                  inançla yapıyoruz.
+                </span>
+              </p>
+            </Reveal>
+
+            <div className="mt-16 grid grid-cols-3 gap-8 max-w-md">
+              {stats.map((stat, i) => (
+                <Reveal key={stat.label} delay={0.2 + i * 0.1}>
+                  <div>
+                    <div className="text-3xl md:text-4xl font-semibold tracking-tight">
+                      <CountUp target={stat.value} suffix={stat.suffix} />
+                    </div>
+                    <div className="mt-1 text-xs text-white/30">
+                      {stat.label}
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
