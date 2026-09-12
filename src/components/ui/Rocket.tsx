@@ -11,7 +11,7 @@ function RocketSvg() {
       height="100"
       viewBox="0 0 64 64"
       fill="none"
-      className="drop-shadow-[0_0_20px_rgba(255,255,255,0.15)] md:w-[300px] md:h-[300px]"
+      className="drop-shadow-[0_0_20px_rgba(255,255,255,0.15)] md:w-[220px] md:h-[220px]"
     >
       {/* Body */}
       <path
@@ -103,21 +103,21 @@ export function Rocket() {
   )
 }
 
-// Parabolic loop: flies from bottom-left up over an arc and exits right, then repeats
+// Parabolic loop: small horizontal flight above the title, then loops
 function ParabolicFlight() {
   return (
     <motion.div
       animate={{
-        x: ['0vw', '30vw', '55vw', '75vw', '75vw', '0vw'],
-        y: ['0vh', '-18vh', '-24vh', '-10vh', '0vh', '0vh'],
-        rotate: [12, 5, 0, -5, -8, 12],
-        opacity: [1, 1, 1, 1, 0, 0],
+        x: ['-14vw', '0vw', '14vw', '14vw', '-14vw'],
+        y: ['0vh', '-6vh', '0vh', '0vh', '0vh'],
+        rotate: [-8, 0, 8, 8, -8],
+        opacity: [0, 1, 1, 0, 0],
       }}
       transition={{
-        duration: 14,
+        duration: 12,
         repeat: Infinity,
         ease: 'easeInOut',
-        times: [0, 0.25, 0.45, 0.65, 0.8, 0.81],
+        times: [0, 0.2, 0.5, 0.85, 0.86],
       }}
       className="relative flex flex-col items-center"
     >
