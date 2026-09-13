@@ -29,17 +29,17 @@ export function Projects({ lang }: { lang: Locale }) {
           </div>
         </Reveal>
 
-        {/* Full-width cinematic tiles — Apple product rows */}
-        <div className="space-y-6">
+        {/* 3-column tiles */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, i) => (
-            <Reveal key={project.slug} delay={0.05}>
+            <Reveal key={project.slug} delay={(i % 3) * 0.06}>
               <Link
                 href={`/${lang}/projeler/${project.slug}`}
-                className="group relative block overflow-hidden rounded-[28px] border border-white/[0.06]"
+                className="group relative block overflow-hidden rounded-[24px] border border-white/[0.06]"
                 aria-label={`${project.title} detayları`}
               >
                 <div
-                  className="relative aspect-[21/9] md:aspect-[21/8] overflow-hidden"
+                  className="relative aspect-[4/3] overflow-hidden"
                   style={{ background: project.gradient }}
                 >
                   {/* Ambient glow */}
@@ -51,35 +51,35 @@ export function Projects({ lang }: { lang: Locale }) {
                     }}
                   />
 
-                  <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
+                  <div className="absolute inset-0 flex flex-col justify-between p-7 md:p-8">
                     <div className="flex items-start justify-between">
-                      <span className="text-[11px] text-white/40 tracking-[0.25em] uppercase">
+                      <span className="text-[10px] text-white/40 tracking-[0.25em] uppercase">
                         {project.category}
                       </span>
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-3">
                         <span className="text-[11px] text-white/30 font-mono">
                           {project.year}
                         </span>
                         <motion.div
-                          className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-400"
+                          className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-400"
                         >
-                          <ArrowUpRight className="h-4 w-4 text-white" />
+                          <ArrowUpRight className="h-3.5 w-3.5 text-white" />
                         </motion.div>
                       </div>
                     </div>
 
-                    <div className="max-w-2xl">
-                      <h3 className="text-3xl md:text-5xl font-semibold tracking-[-0.02em] text-white">
+                    <div>
+                      <h3 className="text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-white">
                         {project.title}
                       </h3>
-                      <p className="mt-3 text-sm md:text-base text-white/50 leading-relaxed line-clamp-2">
+                      <p className="mt-2.5 text-sm text-white/50 leading-relaxed line-clamp-2">
                         {project.description}
                       </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {project.stack.slice(0, 4).map((tag) => (
+                      <div className="mt-4 flex flex-wrap gap-1.5">
+                        {project.stack.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1 text-[10px] rounded-full bg-white/[0.08] text-white/60 backdrop-blur-sm"
+                            className="px-2.5 py-1 text-[10px] rounded-full bg-white/[0.08] text-white/60 backdrop-blur-sm"
                           >
                             {tag}
                           </span>
