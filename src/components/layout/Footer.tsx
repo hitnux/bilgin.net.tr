@@ -13,11 +13,11 @@ export function Footer({ lang }: { lang: Locale }) {
             className="flex items-center gap-2 hover:opacity-70 transition-opacity duration-300"
             aria-label="Bilgin — ana sayfa"
           >
-            <span className="flex items-center justify-center w-6 h-6 rounded-md bg-white/[0.06] border border-white/25 text-white text-xs font-bold leading-none">
+            <span className="flex items-center justify-center w-6 h-6 rounded-md bg-white/[0.06] border border-white/30 text-white text-xs font-bold leading-none">
               b
             </span>
             <span className="text-sm font-semibold tracking-tight text-white">
-              ilgin
+              bilgin
             </span>
           </Link>
 
