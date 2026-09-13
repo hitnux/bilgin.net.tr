@@ -140,7 +140,7 @@ export function Hero({ font = 'comfortaa', lang }: { font?: 'quicksand' | 'comfo
             />
           </div>
           <span className={`text-[11px] text-white/50 tracking-[0.2em] uppercase ${fontClass}`}>
-            Yazılım · Tasarım · 3D
+            {t.hero.badge}
           </span>
         </motion.div>
 
