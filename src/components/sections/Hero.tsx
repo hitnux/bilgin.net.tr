@@ -138,7 +138,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
             />
           </div>
           <span className={`text-[11px] text-white/50 tracking-[0.2em] uppercase ${fontClass}`}>
-            Fikirden ürüne
+            Yazılım · Tasarım · 3D
           </span>
         </motion.div>
 
