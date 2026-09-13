@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { Reveal } from '@/components/ui/Reveal'
 import { CountUp } from '@/components/ui/CountUp'
 import { getDictionary, type Locale } from '@/lib/i18n'
@@ -76,7 +76,7 @@ function Word({
   range,
 }: {
   children: string
-  progress: any
+  progress: MotionValue<number>
   range: [number, number]
 }) {
   const opacity = useTransform(progress, range, [0.12, 1])
