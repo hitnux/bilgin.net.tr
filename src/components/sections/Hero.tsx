@@ -138,7 +138,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
             />
           </div>
           <span className={`text-[11px] text-white/50 tracking-[0.2em] uppercase ${fontClass}`}>
-            Kendi ürünlerimizi geliştiriyoruz
+            Fikirden ürüne
           </span>
         </motion.div>
 
@@ -212,7 +212,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
 
 // Rotating subtitle words
 function RotatingWords() {
-  const words = ['Kendi ürünlerimizi geliştiriyoruz', 'Yazılım ve tasarım stüdyosu', 'Fikirleri ürüne dönüştürüyoruz']
+  const words = ['Fikirden ürüne', 'Yazılım ve tasarım stüdyosu', 'Kendi ürünlerimizi geliştiriyoruz']
   const [index, setIndex] = useState(0)
 
   useEffect(() => {

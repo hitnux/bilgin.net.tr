@@ -72,7 +72,7 @@ export default async function Image() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           <div style={{ display: 'flex', color: 'rgba(255,255,255,0.95)', fontSize: 76, fontWeight: 600, letterSpacing: -2, lineHeight: 1.1 }}>
-            Kendi ürünlerimizi geliştiriyoruz
+            Fikirden ürüne
           </div>
           <div style={{ display: 'flex', color: 'rgba(255,255,255,0.45)', fontSize: 30, fontWeight: 400 }}>
             Web & Mobil Uygulamalar · UI/UX Tasarım · 3D Modelleme
