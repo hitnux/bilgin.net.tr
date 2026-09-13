@@ -1,19 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-const items = [
-  'Ürün Geliştirme',
-  'Mobil Uygulama',
-  'UI/UX Tasarım',
-  '3D Modelleme',
-  'E-Ticaret',
-  'Next.js',
-  'React',
-  'TypeScript',
-]
+export function Marquee({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
+  const items = t.marquee
 
-export function Marquee() {
   return (
     <div className="relative border-y border-white/10 py-6 overflow-hidden group">
       {/* Edge fades */}

@@ -6,15 +6,18 @@ import Link from 'next/link'
 import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { LangToggle } from '@/components/ui/LangToggle'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-const navLinks = [
-  { href: '#hizmetler', label: 'Hizmetler' },
-  { href: '#projeler', label: 'Projeler' },
-  { href: '#hakkinda', label: 'Hakkında' },
-  { href: '#iletisim', label: 'İletişim' },
-]
+export function Navbar({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
+  const navLinks = [
+    { href: '#hizmetler', label: t.nav.services },
+    { href: '#projeler', label: t.nav.projects },
+    { href: '#hakkinda', label: t.nav.about },
+    { href: '#iletisim', label: t.nav.contact },
+  ]
 
-export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const { scrollYProgress } = useScroll()
@@ -40,7 +43,7 @@ export function Navbar() {
 
       <nav className="container mx-auto px-6 py-5 flex items-center justify-between">
         <Link
-          href="/"
+          href={`/${lang}`}
           className="text-lg font-semibold tracking-tight hover:opacity-70 transition-opacity"
         >
           Bilgin
@@ -63,8 +66,12 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Mobile */}
-        <Sheet open={open} onOpenChange={setOpen}>
+        {/* Language toggle */}
+        <div className="flex items-center gap-4">
+          <LangToggle lang={lang} />
+
+          {/* Mobile */}
+          <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger
             className="md:hidden"
             render={<Button variant="ghost" size="icon" />}
@@ -78,15 +85,24 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-2xl font-medium text-white/70 hover:text-white transition-colors"
+                  className="group relative text-base text-white/60 hover:text-white transition-colors"
                 >
-                  <span className="text-xs text-white/25 mr-3">0{i + 1}</span>
+                  <span className="text-[10px] text-white/25 mr-2">
+                    0{i + 1}
+                  </span>
                   {link.label}
                 </Link>
               ))}
+              <a
+                href="mailto:mail@bilgin.net.tr"
+                className="text-sm text-white/40 hover:text-white transition-colors"
+              >
+                mail@bilgin.net.tr
+              </a>
             </div>
           </SheetContent>
         </Sheet>
+        </div>
       </nav>
     </header>
   )

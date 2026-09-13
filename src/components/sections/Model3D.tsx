@@ -3,8 +3,11 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Box } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-export function Model3D() {
+export function Model3D({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
+
   return (
     <section id="3d" className="py-20 md:py-28 border-t border-white/10">
       <div className="container mx-auto px-6">
@@ -12,20 +15,18 @@ export function Model3D() {
           <div className="lg:col-span-7">
             <Reveal>
               <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-4">
-                3D Modelleme
+                {t.model3d.label}
               </p>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight">
-                Fikirden modele,
+                {t.model3d.title1}
                 <br />
-                modelden satışa
+                {t.model3d.title2}
               </h2>
             </Reveal>
 
             <Reveal delay={0.1}>
               <p className="mt-8 text-sm md:text-base text-white/50 leading-relaxed max-w-xl">
-                Ürün görselleştirme, prototip ve baskıya hazır 3D model
-                çalışmaları yapıyoruz. Seçtiğimiz modelleri kendi e-ticaret
-                altyapımız{' '}
+                {t.model3d.description1}{' '}
                 <a
                   href="https://pazarora.com"
                   target="_blank"
@@ -34,19 +35,13 @@ export function Model3D() {
                 >
                   Pazarora
                 </a>{' '}
-                üzerinden satışa sunuyoruz — ödeme sisteminden teslimata kadar
-                altyapı tamamen bizim.
+                {t.model3d.description2}
               </p>
             </Reveal>
 
             <Reveal delay={0.2}>
               <div className="mt-10 flex flex-wrap gap-3">
-                {[
-                  'Ürün Görselleştirme',
-                  'Baskıya Hazır Model',
-                  'Prototip',
-                  'Pazarora\'da Satışta',
-                ].map((item) => (
+                {t.model3d.chips.map((item) => (
                   <span
                     key={item}
                     className="px-4 py-2 text-xs rounded-full border border-white/10 text-white/50"
@@ -83,10 +78,10 @@ export function Model3D() {
                   </div>
                   <div>
                     <h3 className="text-2xl font-medium tracking-tight text-white">
-                      Pazarora
+                      {t.model3d.cardTitle}
                     </h3>
                     <p className="mt-2 text-sm text-white/50">
-                      Kıyafet kalıpları ve 3D modeller satışta
+                      {t.model3d.cardSub}
                     </p>
                   </div>
                 </div>

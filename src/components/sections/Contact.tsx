@@ -4,8 +4,10 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { MagneticButton } from '@/components/ui/MagneticButton'
 import { Reveal } from '@/components/ui/Reveal'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-export function Contact() {
+export function Contact({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -30,20 +32,19 @@ export function Contact() {
       <motion.div style={{ scale, opacity }} className="container mx-auto px-6 text-center relative">
         <Reveal>
           <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-6">
-            İletişim
+            {t.contact.label}
           </p>
         </Reveal>
 
         <Reveal delay={0.1}>
           <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-white/90 max-w-2xl mx-auto leading-tight">
-            Merhaba deyin
+            {t.contact.title}
           </h2>
         </Reveal>
 
         <Reveal delay={0.2}>
           <p className="mt-6 text-sm text-white/40 max-w-md mx-auto">
-            Ürünlerimiz, tasarımlarımız veya 3D modellerimiz hakkında
-            konuşalım. Genellikle 24 saat içinde dönüş yapıyoruz.
+            {t.contact.text}
           </p>
         </Reveal>
 
@@ -80,7 +81,7 @@ export function Contact() {
 
         <Reveal delay={0.4}>
           <p className="mt-16 text-[11px] text-white/25 tracking-[0.2em] uppercase">
-            Burdur, Türkiye
+            {t.contact.location}
           </p>
         </Reveal>
       </motion.div>

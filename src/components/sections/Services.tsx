@@ -4,32 +4,11 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-const services = [
-  {
-    num: '01',
-    title: 'Ürün Geliştirme',
-    description:
-      'Kendi ürünlerimizi geliştiriyoruz — web uygulamaları, mobil uygulamalar ve masaüstü araçlar. Fikirden yayına kadar tüm süreci kendimiz yönetiyoruz; dışarıdan yazılım işi almıyoruz.',
-    tags: ['Next.js', 'React Native', 'PocketBase', 'TypeScript'],
-  },
-  {
-    num: '02',
-    title: 'UI/UX Tasarım',
-    description:
-      'Ürünlerimizin arayüzünü kendimiz tasarlıyoruz; kapasite ve proje takvimine göre dışarıdan tasarım işi de alıyoruz. Araştırmadan prototipe, wireframe\'den final tasarıma kadar eksiksiz teslim.',
-    tags: ['Figma', 'Prototip', 'Design System', 'Web & Mobil'],
-  },
-  {
-    num: '03',
-    title: '3D Modelleme',
-    description:
-      'Ürün görselleştirme, prototip ve baskıya hazır 3D model çalışmaları. Seçili modelleri Pazarora üzerinden satışa sunuyoruz.',
-    tags: ['Modelleme', 'Prototip', 'Render', 'Pazarora'],
-  },
-]
-
-export function Services() {
+export function Services({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
+  const services = t.services.items
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
@@ -39,21 +18,21 @@ export function Services() {
           <div className="flex items-end justify-between mb-12">
             <div>
               <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-4">
-                Hizmetler
+                {t.services.label}
               </p>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-                Ne yapıyoruz
+                {t.services.title}
               </h2>
             </div>
             <span className="text-xs text-white/25 hidden md:block">
-              (03)
+              ({services.length.toString().padStart(2, '0')})
             </span>
           </div>
         </Reveal>
 
         <div className="border-t border-white/10">
           {services.map((service, i) => (
-            <Reveal key={service.num} delay={i * 0.05}>
+            <Reveal key={service.title} delay={i * 0.05}>
               <div className="border-b border-white/10">
                 <button
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
@@ -74,7 +53,7 @@ export function Services() {
                   <div className="relative flex items-center justify-between gap-6">
                     <div className="flex items-baseline gap-6 md:gap-12">
                       <span className="text-[11px] text-white/25 font-mono">
-                        {service.num}
+                        0{i + 1}
                       </span>
                       <h3
                         className={`text-2xl md:text-4xl font-medium tracking-tight transition-colors ${

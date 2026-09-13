@@ -4,14 +4,16 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { Reveal } from '@/components/ui/Reveal'
 import { CountUp } from '@/components/ui/CountUp'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-const stats = [
-  { value: 5, suffix: '+', label: 'Yıl' },
-  { value: 50, suffix: '+', label: 'Müşteri' },
-  { value: 100, suffix: '+', label: 'Proje' },
+const statValues = [
+  { value: 5, suffix: '+' },
+  { value: 3, suffix: '' },
+  { value: 12, suffix: '+' },
 ]
 
-export function About() {
+export function About({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -19,10 +21,7 @@ export function About() {
   })
 
   // Word-by-word highlight on scroll (like Apple)
-  const words =
-    'Kendi ürünlerimizi tasarlıyor, geliştiriyor ve satıyoruz. Basitlik karmaşıklığın en yüksek hâlidir — işimizi bu inançla yapıyoruz.'.split(
-      ' '
-    )
+  const words = t.about.text.split(' ')
   const totalWords = words.length
 
   return (
@@ -32,7 +31,7 @@ export function About() {
           <div className="lg:col-span-3">
             <Reveal>
               <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase">
-                Hakkında
+                {t.about.label}
               </p>
             </Reveal>
           </div>
@@ -52,8 +51,8 @@ export function About() {
             </p>
 
             <div className="mt-16 grid grid-cols-3 gap-8 max-w-md">
-              {stats.map((stat, i) => (
-                <Reveal key={stat.label} delay={0.2 + i * 0.1}>
+              {statValues.map((stat, i) => (
+                <Reveal key={t.about.stats[i].label} delay={0.2 + i * 0.1}>
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
@@ -62,7 +61,7 @@ export function About() {
                       <CountUp target={stat.value} suffix={stat.suffix} />
                     </div>
                     <div className="mt-1 text-xs text-white/30">
-                      {stat.label}
+                      {t.about.stats[i].label}
                     </div>
                   </motion.div>
                 </Reveal>

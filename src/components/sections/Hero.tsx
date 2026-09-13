@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'fram
 import { useRef, useState, useEffect } from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { MagneticButton } from '@/components/ui/MagneticButton'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
 // Letter-by-letter reveal for the main title
 function AnimatedTitle({ text }: { text: string }) {
@@ -30,7 +31,8 @@ function AnimatedTitle({ text }: { text: string }) {
   )
 }
 
-export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' }) {
+export function Hero({ font = 'comfortaa', lang }: { font?: 'quicksand' | 'comfortaa'; lang: 'tr' | 'en' }) {
+  const t = getDictionary(lang)
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -161,7 +163,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
           transition={{ duration: 0.8, delay: 1.2 }}
           className={`mt-8 text-sm md:text-base text-white/35 ${fontClass}`}
         >
-          <RotatingWords />
+          <RotatingWords words={t.hero.words} />
         </motion.div>
 
         {/* CTA buttons */}
@@ -176,7 +178,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
               href="#hizmetler"
               className={`group inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors ${fontClass}`}
             >
-              Keşfet
+              {t.hero.explore}
               <motion.span
                 animate={{ y: [0, 3, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -191,7 +193,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
               href="#iletisim"
               className={`group inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors ${fontClass}`}
             >
-              İletişim
+              {t.hero.contact}
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </MagneticButton>
@@ -211,8 +213,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
 }
 
 // Rotating subtitle words
-function RotatingWords() {
-  const words = ['Fikirden ürüne', 'Yazılım ve tasarım stüdyosu', 'Kendi ürünlerimizi geliştiriyoruz']
+function RotatingWords({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {

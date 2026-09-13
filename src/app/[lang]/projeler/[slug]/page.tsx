@@ -2,14 +2,16 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight, Check } from 'lucide-react'
 import { projects, getProject } from '@/lib/projects'
-import { StarField } from '@/components/ui/StarField'
+import { getDictionary, locales, defaultLocale, type Locale } from '@/lib/i18n'
 
 interface Props {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string; lang: string }>
 }
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
+  return locales.flatMap((lang) =>
+    projects.map((p) => ({ lang, slug: p.slug }))
+  )
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -23,7 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProjectPage({ params }: Props) {
-  const { slug } = await params
+  const { slug, lang: rawLang } = await params
+  const lang: Locale = locales.includes(rawLang as Locale) ? (rawLang as Locale) : defaultLocale
+  const t = getDictionary(lang)
   const project = getProject(slug)
 
   if (!project) return null
@@ -32,11 +36,11 @@ export default async function ProjectPage({ params }: Props) {
     <main className="relative min-h-screen">
       <div className="container mx-auto px-6 pt-32 pb-24">
         <Link
-          href="/#projeler"
+          href={`/${lang}#projeler`}
           className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          Tüm projeler
+          {t.projectDetail.back}
         </Link>
 
         <div className="mt-10">
@@ -48,12 +52,12 @@ export default async function ProjectPage({ params }: Props) {
             {project.status === 'live' ? (
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] text-[10px] text-emerald-300/80 tracking-wider uppercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                Yayında
+                {t.status.live}
               </span>
             ) : (
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-[10px] text-white/40 tracking-wider uppercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
-                Geliştirme
+                {t.status.development}
               </span>
             )}
           </div>
@@ -97,7 +101,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-7">
             <h2 className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-6">
-              Hakkında
+              {t.projectDetail.about}
             </h2>
             <div className="space-y-5">
               {project.longDescription.map((para, i) => (
@@ -108,7 +112,7 @@ export default async function ProjectPage({ params }: Props) {
             </div>
 
             <h2 className="text-[11px] text-white/30 tracking-[0.25em] uppercase mt-14 mb-6">
-              Özellikler
+              {t.projectDetail.features}
             </h2>
             <ul className="space-y-3">
               {project.features.map((feature) => (
@@ -123,7 +127,7 @@ export default async function ProjectPage({ params }: Props) {
           <div className="lg:col-span-5">
             <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
               <h2 className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-6">
-                Teknolojiler
+                {t.projectDetail.stack}
               </h2>
               <div className="flex flex-wrap gap-2">
                 {project.stack.map((tech) => (
@@ -138,17 +142,17 @@ export default async function ProjectPage({ params }: Props) {
 
               <div className="mt-8 pt-8 border-t border-white/10 space-y-4 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-white/30">Kategori</span>
+                  <span className="text-white/30">{t.projectDetail.category}</span>
                   <span className="text-white/70">{project.category}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/30">Başlangıç</span>
+                  <span className="text-white/30">{t.projectDetail.started}</span>
                   <span className="text-white/70">{project.year}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/30">Durum</span>
+                  <span className="text-white/30">{t.projectDetail.status}</span>
                   <span className="text-white/70">
-                    {project.status === 'live' ? 'Yayında' : 'Geliştirme'}
+                    {project.status === 'live' ? t.status.live : t.status.development}
                   </span>
                 </div>
               </div>

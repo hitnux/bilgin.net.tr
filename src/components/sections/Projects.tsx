@@ -5,8 +5,11 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
 import { projects } from '@/lib/projects'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-export function Projects() {
+export function Projects({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
+
   return (
     <section id="projeler" className="py-20 md:py-28 border-t border-white/10">
       <div className="container mx-auto px-6">
@@ -14,10 +17,10 @@ export function Projects() {
           <div className="flex items-end justify-between mb-12">
             <div>
               <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-4">
-                Geliştirdiğimiz Ürünler
+                {t.projects.label}
               </p>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-                Projeler
+                {t.projects.title}
               </h2>
             </div>
             <span className="text-xs text-white/25 hidden md:block">
@@ -30,7 +33,7 @@ export function Projects() {
           {projects.map((project, i) => (
             <Reveal key={project.slug} delay={(i % 2) * 0.05}>
               <Link
-                href={`/projeler/${project.slug}`}
+                href={`/${lang}/projeler/${project.slug}`}
                 className="group relative block bg-black aspect-[4/3] overflow-hidden"
                 aria-label={`${project.title} detayları`}
               >
