@@ -50,9 +50,15 @@ export function Navbar({ lang }: { lang: Locale }) {
       >
         <Link
           href={`/${lang}`}
-          className="text-[15px] font-semibold tracking-tight hover:opacity-60 transition-opacity duration-300"
+          className="flex items-center gap-2.5 hover:opacity-70 transition-opacity duration-300"
+          aria-label="Bilgin — ana sayfa"
         >
-          Bilgin
+          <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-white/[0.06] border border-white/25 text-white text-sm font-bold leading-none">
+            b
+          </span>
+          <span className="text-[15px] font-semibold tracking-tight text-white">
+            ilgin
+          </span>
         </Link>
 
         {/* Desktop — Apple nav: small, evenly weighted */}

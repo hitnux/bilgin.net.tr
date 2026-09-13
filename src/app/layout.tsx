@@ -58,13 +58,9 @@ export default async function RootLayout({
         <CustomCursor />
         {!maintenance && <StarField />}
         {!maintenance && <ScrollToTop />}
-        {!maintenance && (
-          <>
-            <Navbar lang={lang} />
-            <Footer lang={lang} />
-          </>
-        )}
+        {!maintenance && <Navbar lang={lang} />}
         <main className="min-h-screen">{children}</main>
+        {!maintenance && <Footer lang={lang} />}
       </body>
     </html>
   )

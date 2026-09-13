@@ -10,9 +10,15 @@ export function Footer({ lang }: { lang: Locale }) {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <Link
             href={`/${lang}`}
-            className="text-sm font-semibold tracking-tight hover:opacity-70 transition-opacity"
+            className="flex items-center gap-2 hover:opacity-70 transition-opacity duration-300"
+            aria-label="Bilgin — ana sayfa"
           >
-            Bilgin
+            <span className="flex items-center justify-center w-6 h-6 rounded-md bg-white/[0.06] border border-white/25 text-white text-xs font-bold leading-none">
+              b
+            </span>
+            <span className="text-sm font-semibold tracking-tight text-white">
+              ilgin
+            </span>
           </Link>
 
           <div className="flex items-center gap-8">
