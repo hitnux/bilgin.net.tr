@@ -15,13 +15,13 @@ export function Footer() {
 
           <div className="flex items-center gap-8">
             <Link
-              href="#"
+              href="/gizlilik"
               className="text-xs text-white/30 hover:text-white/70 transition-colors"
             >
               Gizlilik
             </Link>
             <Link
-              href="#"
+              href="/kvkk"
               className="text-xs text-white/30 hover:text-white/70 transition-colors"
             >
               KVKK

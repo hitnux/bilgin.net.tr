@@ -1,65 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
-
-const projects = [
-  {
-    title: 'Filamify',
-    category: 'SaaS · Workshop OS',
-    year: '2025',
-    description:
-      '3D baskı atölyeleri için ERP: reçete maliyetlendirme, filament/makine envanteri, yazıcı izleme ve müşteri teklifleri. Ücretsiz + Pro üyelik modeliyle çalışıyor.',
-    gradient: 'linear-gradient(135deg, #0f2027 0%, #203a43 100%)',
-    tags: ['Next.js', 'PocketBase', 'Authentik'],
-  },
-  {
-    title: 'OktOs',
-    category: 'AI Arayüz',
-    year: '2024',
-    description:
-      'Senaryo odaklı yapay zekâ arayüzü. Vite React istemci ve Hono API üzerine kurulu; OpenRouter ile çoklu model desteği.',
-    gradient: 'linear-gradient(135deg, #16161d 0%, #252533 100%)',
-    tags: ['React', 'Hono', 'OpenRouter'],
-  },
-  {
-    title: 'e-Cüzdan',
-    category: 'FinTech',
-    year: '2026',
-    description:
-      'Kişisel gelir/gider takip uygulaması. Çoklu para birimi, altın/gümüş takibi, düzenli ödemeler ve RBAC ile çoklu kullanıcı desteği.',
-    gradient: 'linear-gradient(135deg, #232526 0%, #414345 100%)',
-    tags: ['React 19', 'MUI', 'PocketBase', 'Zustand'],
-  },
-  {
-    title: 'Hazne',
-    category: 'Mobil Uygulama',
-    year: '2026',
-    description:
-      'Mobil üretkenlik uygulaması: hızlı komut erişimi, tema özelleştirme ve eklenti desteğiyle iş akışını hızlandırır.',
-    gradient: 'linear-gradient(135deg, #0d1117 0%, #1c2530 100%)',
-    tags: ['React Native', 'Expo', 'SQLite'],
-  },
-  {
-    title: 'Pazarora',
-    category: 'E-Ticaret',
-    year: '2024',
-    description:
-      'Kendi e-ticaret altyapımız: aktif ödeme sistemi ve ürün satışı. Kıyafet kalıpları ve seçili 3D modeller burada satılıyor.',
-    gradient: 'linear-gradient(135deg, #1f1c2c 0%, #2c3e50 100%)',
-    tags: ['WooCommerce', 'Ödeme Altyapısı'],
-  },
-  {
-    title: 'Teknikenerji',
-    category: 'Web Platform',
-    year: '2025',
-    description:
-      'Teknik enerji içerik platformu: Astro + Sanity ile hızlı, SEO odaklı yayın sitesi.',
-    gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
-    tags: ['Astro', 'Sanity', 'Tailwind'],
-  },
-]
+import { projects } from '@/lib/projects'
 
 export function Projects() {
   return (
@@ -83,11 +28,11 @@ export function Projects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
           {projects.map((project, i) => (
-            <Reveal key={project.title} delay={(i % 2) * 0.05}>
-              <motion.div
+            <Reveal key={project.slug} delay={(i % 2) * 0.05}>
+              <Link
+                href={`/projeler/${project.slug}`}
                 className="group relative block bg-black aspect-[4/3] overflow-hidden"
-                whileHover="hover"
-                initial="rest"
+                aria-label={`${project.title} detayları`}
               >
                 {/* Gradient tile */}
                 <div
@@ -143,7 +88,7 @@ export function Projects() {
                     </motion.p>
 
                     <div className="mt-4 flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
+                      {project.stack.map((tag) => (
                         <span
                           key={tag}
                           className="px-2.5 py-1 text-[10px] rounded-full bg-white/[0.06] text-white/50 backdrop-blur-sm"
@@ -165,7 +110,7 @@ export function Projects() {
                     <ArrowUpRight className="h-4 w-4 text-white" />
                   </motion.div>
                 </div>
-              </motion.div>
+              </Link>
             </Reveal>
           ))}
         </div>

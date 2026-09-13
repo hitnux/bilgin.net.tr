@@ -14,6 +14,7 @@ const comfortaa = Comfortaa({
 const maintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'true'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://bilgin.net.tr'),
   title: 'Bilgin',
   description:
     'Kendi ürünlerimizi geliştiriyoruz — web ve mobil uygulamalar, UI/UX tasarım ve 3D modelleme. Seçili modeller Pazarora\'da satışta.',
