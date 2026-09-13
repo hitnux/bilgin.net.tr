@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 
 interface Star {
   left: string
@@ -48,8 +48,11 @@ export function StarField() {
   ], [])
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
-      {/* Deep space background — darker than before for text readability */}
+    <div
+      className="fixed inset-0 overflow-hidden pointer-events-none z-0"
+      aria-hidden="true"
+    >
+      {/* Deep space background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(40,30,80,0.12),transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_30%_at_20%_80%,rgba(15,25,60,0.1),transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_35%_at_80%_20%,rgba(30,15,60,0.08),transparent)]" />

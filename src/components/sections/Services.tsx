@@ -8,31 +8,24 @@ import { Reveal } from '@/components/ui/Reveal'
 const services = [
   {
     num: '01',
-    title: 'Web Geliştirme',
+    title: 'Ürün Geliştirme',
     description:
-      'Next.js, React ve TypeScript ile modern, hızlı ve ölçeklenebilir web uygulamaları. SEO optimizasyonu, performans ve erişilebilirlik odaklı geliştirme.',
-    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind'],
+      'Kendi ürünlerimizi geliştiriyoruz — web uygulamaları, mobil uygulamalar ve masaüstü araçlar. Fikirden yayına kadar tüm süreci kendimiz yönetiyoruz; dışarıdan yazılım işi almıyoruz.',
+    tags: ['Next.js', 'React Native', 'PocketBase', 'TypeScript'],
   },
   {
     num: '02',
-    title: 'Mobil Uygulama',
+    title: 'UI/UX Tasarım',
     description:
-      'React Native ile iOS ve Android için tek kod tabanından native deneyimler. App Store ve Play Store yayın süreci dahil uçtan uca çözüm.',
-    tags: ['React Native', 'Expo', 'iOS', 'Android'],
+      'Ürünlerimizin arayüzünü kendimiz tasarlıyoruz; kapasite ve proje takvimine göre dışarıdan tasarım işi de alıyoruz. Araştırmadan prototipe, wireframe\'den final tasarıma kadar eksiksiz teslim.',
+    tags: ['Figma', 'Prototip', 'Design System', 'Web & Mobil'],
   },
   {
     num: '03',
-    title: 'UI/UX Tasarım',
+    title: '3D Modelleme',
     description:
-      'Kullanıcı araştırmasından prototipe, wireframe\'den final tasarıma. Figma ile tasarım sistemi kurulumu ve design token yönetimi.',
-    tags: ['Figma', 'Prototip', 'Design System', 'Wireframe'],
-  },
-  {
-    num: '04',
-    title: 'Danışmanlık',
-    description:
-      'Teknoloji seçimi, mimari kararlar ve dijital dönüşüm stratejisi. Mevcut sistemlerinizi analiz eder, yol haritası çıkarırız.',
-    tags: ['Mimari', 'Strateji', 'Audit', 'Roadmap'],
+      'Ürün görselleştirme, prototip ve baskıya hazır 3D model çalışmaları. Seçili modelleri Pazarora üzerinden satışa sunuyoruz.',
+    tags: ['Modelleme', 'Prototip', 'Render', 'Pazarora'],
   },
 ]
 
@@ -53,7 +46,7 @@ export function Services() {
               </h2>
             </div>
             <span className="text-xs text-white/25 hidden md:block">
-              (04)
+              (03)
             </span>
           </div>
         </Reveal>

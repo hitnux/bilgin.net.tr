@@ -20,7 +20,7 @@ export function About() {
 
   // Word-by-word highlight on scroll (like Apple)
   const words =
-    'Dijital ürünler tasarlıyor ve geliştiriyoruz. Basitlik karmaşıklığın en yüksek hâlidir — işimizi bu inançla yapıyoruz.'.split(
+    'Kendi ürünlerimizi tasarlıyor, geliştiriyor ve satıyoruz. Basitlik karmaşıklığın en yüksek hâlidir — işimizi bu inançla yapıyoruz.'.split(
       ' '
     )
   const totalWords = words.length

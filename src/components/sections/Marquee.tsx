@@ -3,11 +3,11 @@
 import { motion } from 'framer-motion'
 
 const items = [
-  'Web Geliştirme',
+  'Ürün Geliştirme',
   'Mobil Uygulama',
   'UI/UX Tasarım',
+  '3D Modelleme',
   'E-Ticaret',
-  'Danışmanlık',
   'Next.js',
   'React',
   'TypeScript',

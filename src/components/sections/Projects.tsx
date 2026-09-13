@@ -6,46 +6,58 @@ import { Reveal } from '@/components/ui/Reveal'
 
 const projects = [
   {
-    title: 'Teknikenerji',
-    category: 'Web Platform',
-    year: '2025',
-    gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
-    tags: ['Astro', 'Sanity', 'Tailwind'],
-  },
-  {
     title: 'Filamify',
-    category: 'SaaS Ürün',
+    category: 'SaaS · Workshop OS',
     year: '2025',
+    description:
+      '3D baskı atölyeleri için ERP: reçete maliyetlendirme, filament/makine envanteri, yazıcı izleme ve müşteri teklifleri. Ücretsiz + Pro üyelik modeliyle çalışıyor.',
     gradient: 'linear-gradient(135deg, #0f2027 0%, #203a43 100%)',
-    tags: ['Next.js', 'PocketBase'],
+    tags: ['Next.js', 'PocketBase', 'Authentik'],
   },
   {
-    title: 'Pazarora',
-    category: 'E-Ticaret',
+    title: 'OktOs',
+    category: 'AI Arayüz',
     year: '2024',
-    gradient: 'linear-gradient(135deg, #1f1c2c 0%, #2c3e50 100%)',
-    tags: ['WordPress', 'WooCommerce'],
+    description:
+      'Senaryo odaklı yapay zekâ arayüzü. Vite React istemci ve Hono API üzerine kurulu; OpenRouter ile çoklu model desteği.',
+    gradient: 'linear-gradient(135deg, #16161d 0%, #252533 100%)',
+    tags: ['React', 'Hono', 'OpenRouter'],
   },
   {
-    title: 'E-Cüzdan',
+    title: 'e-Cüzdan',
     category: 'FinTech',
     year: '2026',
+    description:
+      'Kişisel gelir/gider takip uygulaması. Çoklu para birimi, altın/gümüş takibi, düzenli ödemeler ve RBAC ile çoklu kullanıcı desteği.',
     gradient: 'linear-gradient(135deg, #232526 0%, #414345 100%)',
-    tags: ['React', 'MUI', 'PocketBase'],
+    tags: ['React 19', 'MUI', 'PocketBase', 'Zustand'],
   },
   {
     title: 'Hazne',
     category: 'Mobil Uygulama',
     year: '2026',
+    description:
+      'Mobil üretkenlik uygulaması: hızlı komut erişimi, tema özelleştirme ve eklenti desteğiyle iş akışını hızlandırır.',
     gradient: 'linear-gradient(135deg, #0d1117 0%, #1c2530 100%)',
-    tags: ['React Native', 'Expo'],
+    tags: ['React Native', 'Expo', 'SQLite'],
   },
   {
-    title: 'OktOs',
-    category: 'Ürün',
+    title: 'Pazarora',
+    category: 'E-Ticaret',
     year: '2024',
-    gradient: 'linear-gradient(135deg, #16161d 0%, #252533 100%)',
-    tags: ['Ürün Tasarımı'],
+    description:
+      'Kendi e-ticaret altyapımız: aktif ödeme sistemi ve ürün satışı. Kıyafet kalıpları ve seçili 3D modeller burada satılıyor.',
+    gradient: 'linear-gradient(135deg, #1f1c2c 0%, #2c3e50 100%)',
+    tags: ['WooCommerce', 'Ödeme Altyapısı'],
+  },
+  {
+    title: 'Teknikenerji',
+    category: 'Web Platform',
+    year: '2025',
+    description:
+      'Teknik enerji içerik platformu: Astro + Sanity ile hızlı, SEO odaklı yayın sitesi.',
+    gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+    tags: ['Astro', 'Sanity', 'Tailwind'],
   },
 ]
 
@@ -57,7 +69,7 @@ export function Projects() {
           <div className="flex items-end justify-between mb-12">
             <div>
               <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase mb-4">
-                Seçilmiş İşler
+                Geliştirdiğimiz Ürünler
               </p>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
                 Projeler
@@ -72,8 +84,7 @@ export function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
           {projects.map((project, i) => (
             <Reveal key={project.title} delay={(i % 2) * 0.05}>
-              <motion.a
-                href="#"
+              <motion.div
                 className="group relative block bg-black aspect-[4/3] overflow-hidden"
                 whileHover="hover"
                 initial="rest"
@@ -120,7 +131,18 @@ export function Projects() {
                       {project.title}
                     </motion.h3>
 
-                    <div className="mt-3 flex flex-wrap gap-2">
+                    <motion.p
+                      className="mt-3 text-sm text-white/50 leading-relaxed max-w-md"
+                      variants={{
+                        rest: { opacity: 0.7 },
+                        hover: { opacity: 1 },
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {project.description}
+                    </motion.p>
+
+                    <div className="mt-4 flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
@@ -143,7 +165,7 @@ export function Projects() {
                     <ArrowUpRight className="h-4 w-4 text-white" />
                   </motion.div>
                 </div>
-              </motion.a>
+              </motion.div>
             </Reveal>
           ))}
         </div>

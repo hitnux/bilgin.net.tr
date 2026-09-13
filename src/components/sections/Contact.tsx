@@ -36,13 +36,14 @@ export function Contact() {
 
         <Reveal delay={0.1}>
           <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-white/90 max-w-2xl mx-auto leading-tight">
-            Bir projeniz mi var?
+            Merhaba deyin
           </h2>
         </Reveal>
 
         <Reveal delay={0.2}>
           <p className="mt-6 text-sm text-white/40 max-w-md mx-auto">
-            Fikrinizi dinleyelim. Genellikle 24 saat içinde dönüş yapıyoruz.
+            Ürünlerimiz, tasarımlarımız veya 3D modellerimiz hakkında
+            konuşalım. Genellikle 24 saat içinde dönüş yapıyoruz.
           </p>
         </Reveal>
 

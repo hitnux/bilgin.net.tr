@@ -4,6 +4,7 @@ import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { CustomCursor } from '@/components/ui/CustomCursor'
+import { StarField } from '@/components/ui/StarField'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -15,7 +16,7 @@ const maintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'true'
 export const metadata: Metadata = {
   title: 'Bilgin',
   description:
-    'Yazılım ve tasarım çözümleriyle işletmenizin dijital dönüşümünü hızlandırıyoruz.',
+    'Kendi ürünlerimizi geliştiriyoruz — web ve mobil uygulamalar, UI/UX tasarım ve 3D modelleme. Seçili modeller Pazarora\'da satışta.',
 }
 
 export const viewport: Viewport = maintenance
@@ -48,6 +49,7 @@ export default function RootLayout({
         }
       >
         <CustomCursor />
+        {!maintenance && <StarField />}
         {!maintenance && (
           <>
             <Navbar />

@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'fram
 import { useRef, useState, useEffect } from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { MagneticButton } from '@/components/ui/MagneticButton'
-import { StarField } from '@/components/ui/StarField'
 
 // Letter-by-letter reveal for the main title
 function AnimatedTitle({ text }: { text: string }) {
@@ -71,8 +70,6 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
       onMouseMove={handleMouseMove}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Star field background */}
-      <StarField />
       {/* Mouse-follow glow */}
       <motion.div
         className="absolute w-[700px] h-[700px] rounded-full pointer-events-none"
@@ -141,7 +138,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
             />
           </div>
           <span className={`text-[11px] text-white/50 tracking-[0.2em] uppercase ${fontClass}`}>
-            Projelere açığız
+            Kendi ürünlerimizi geliştiriyoruz
           </span>
         </motion.div>
 
@@ -215,7 +212,7 @@ export function Hero({ font = 'comfortaa' }: { font?: 'quicksand' | 'comfortaa' 
 
 // Rotating subtitle words
 function RotatingWords() {
-  const words = ['Yazılım ve tasarım stüdyosu', 'Fikirleri ürüne dönüştürüyoruz', 'Dijital çözümler geliştiriyoruz']
+  const words = ['Kendi ürünlerimizi geliştiriyoruz', 'Yazılım ve tasarım stüdyosu', 'Fikirleri ürüne dönüştürüyoruz']
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
