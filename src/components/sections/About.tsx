@@ -1,73 +1,68 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { Reveal } from '@/components/ui/Reveal'
 import { CountUp } from '@/components/ui/CountUp'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-const stats = [
-  { value: 5, suffix: '+', label: 'Yıl' },
-  { value: 50, suffix: '+', label: 'Müşteri' },
-  { value: 100, suffix: '+', label: 'Proje' },
+const statValues = [
+  { value: 5, suffix: '+' },
+  { value: 3, suffix: '' },
+  { value: 12, suffix: '+' },
 ]
 
-export function About() {
+export function About({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   })
 
-  // Word-by-word highlight on scroll (like Apple)
-  const words =
-    'Dijital ürünler tasarlıyor ve geliştiriyoruz. Basitlik karmaşıklığın en yüksek hâlidir — işimizi bu inançla yapıyoruz.'.split(
-      ' '
-    )
+  // Apple-style statement: word-by-word highlight, slower and softer
+  const words = t.about.text.split(' ')
   const totalWords = words.length
 
   return (
-    <section ref={ref} id="hakkinda" className="py-20 md:py-28 border-t border-white/10">
+    <section ref={ref} id="hakkinda" className="py-28 md:py-40 border-t border-white/[0.06]">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-3">
-            <Reveal>
-              <p className="text-[11px] text-white/30 tracking-[0.25em] uppercase">
-                Hakkında
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-9">
-            {/* Scroll-driven word highlight */}
-            <p className="text-2xl md:text-4xl font-light leading-snug tracking-tight max-w-3xl">
-              {words.map((word, i) => (
-                <Word
-                  key={i}
-                  progress={scrollYProgress}
-                  range={[i / totalWords, (i + 1) / totalWords]}
-                >
-                  {word}
-                </Word>
-              ))}
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <p className="text-[11px] text-white/30 tracking-[0.3em] uppercase text-center mb-14">
+              {t.about.label}
             </p>
+          </Reveal>
 
-            <div className="mt-16 grid grid-cols-3 gap-8 max-w-md">
-              {stats.map((stat, i) => (
-                <Reveal key={stat.label} delay={0.2 + i * 0.1}>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="text-3xl md:text-4xl font-semibold tracking-tight">
-                      <CountUp target={stat.value} suffix={stat.suffix} />
-                    </div>
-                    <div className="mt-1 text-xs text-white/30">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                </Reveal>
-              ))}
-            </div>
+          {/* Scroll-driven word highlight */}
+          <p className="text-3xl md:text-5xl font-medium leading-[1.2] tracking-[-0.02em] text-center">
+            {words.map((word, i) => (
+              <Word
+                key={i}
+                progress={scrollYProgress}
+                range={[i / totalWords, (i + 1) / totalWords]}
+              >
+                {word}
+              </Word>
+            ))}
+          </p>
+
+          {/* Stats — quiet, hairline separated */}
+          <div className="mt-24 grid grid-cols-3 border-t border-white/[0.06]">
+            {statValues.map((stat, i) => (
+              <Reveal key={t.about.stats[i].label} delay={0.2 + i * 0.12}>
+                <div
+                  className={`pt-8 text-center ${i > 0 ? 'border-l border-white/[0.06]' : ''}`}
+                >
+                  <div className="text-4xl md:text-5xl font-semibold tracking-tight">
+                    <CountUp target={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <div className="mt-2 text-xs text-white/30 tracking-wide">
+                    {t.about.stats[i].label}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </div>
@@ -81,18 +76,13 @@ function Word({
   range,
 }: {
   children: string
-  progress: any
+  progress: MotionValue<number>
   range: [number, number]
 }) {
-  const opacity = useTransform(progress, range, [0.15, 1])
-  const color = useTransform(
-    progress,
-    range,
-    ['rgba(255,255,255,0.15)', 'rgba(255,255,255,0.95)']
-  )
+  const opacity = useTransform(progress, range, [0.12, 1])
 
   return (
-    <motion.span style={{ opacity, color }} className="inline-block mr-[0.3em]">
+    <motion.span style={{ opacity }} className="inline-block mr-[0.28em]">
       {children}
     </motion.span>
   )
