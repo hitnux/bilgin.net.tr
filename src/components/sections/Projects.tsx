@@ -5,13 +5,14 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
 import { projects } from '@/lib/projects'
-import { getDictionary, type Locale } from '@/lib/i18n'
+import { getProjectContent } from '@/lib/project-i18n'
+import { getDictionary, defaultLocale, type Locale } from '@/lib/i18n'
 
 export function Projects({ lang }: { lang: Locale }) {
   const t = getDictionary(lang)
 
   return (
-    <section id="projeler" className="py-24 md:py-32 border-t border-white/[0.06]">
+    <section id="projects" className="py-24 md:py-32 border-t border-white/[0.06]">
       <div className="container mx-auto px-6">
         <Reveal>
           <div className="flex items-end justify-between mb-14">
@@ -31,12 +32,14 @@ export function Projects({ lang }: { lang: Locale }) {
 
         {/* 3-column tiles */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((project, i) => (
+          {projects.map((project, i) => {
+            const content = getProjectContent(project, lang)
+            return (
             <Reveal key={project.slug} delay={(i % 3) * 0.06}>
               <Link
-                href={`/${lang}/projeler/${project.slug}`}
+                href={lang === defaultLocale ? `/projects/${project.slug}` : `/${lang}/projects/${project.slug}`}
                 className="group relative block overflow-hidden rounded-[24px] border border-white/[0.06]"
-                aria-label={`${project.title} detayları`}
+                aria-label={`${project.title} ${lang === 'tr' ? 'detayları' : 'details'}`}
               >
                 <div
                   className="relative aspect-[4/3] overflow-hidden"
@@ -54,7 +57,7 @@ export function Projects({ lang }: { lang: Locale }) {
                   <div className="absolute inset-0 flex flex-col justify-between p-7 md:p-8">
                     <div className="flex items-start justify-between">
                       <span className="text-[10px] text-white/40 tracking-[0.25em] uppercase">
-                        {project.category}
+                        {content.category}
                       </span>
                       <div className="flex items-center gap-3">
                         <span className="text-[11px] text-white/30 font-mono">
@@ -73,7 +76,7 @@ export function Projects({ lang }: { lang: Locale }) {
                         {project.title}
                       </h3>
                       <p className="mt-2.5 text-sm text-white/50 leading-relaxed line-clamp-2">
-                        {project.description}
+                        {content.description}
                       </p>
                       <div className="mt-4 flex flex-wrap gap-1.5">
                         {project.stack.slice(0, 3).map((tag) => (
@@ -90,7 +93,8 @@ export function Projects({ lang }: { lang: Locale }) {
                 </div>
               </Link>
             </Reveal>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

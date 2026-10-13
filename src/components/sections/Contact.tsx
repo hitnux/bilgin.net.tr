@@ -17,7 +17,7 @@ export function Contact({ lang }: { lang: Locale }) {
   const opacity = useTransform(scrollYProgress, [0.25, 0.5], [0, 1])
 
   return (
-    <section ref={ref} id="iletisim" className="py-36 md:py-48 border-t border-white/[0.06] relative overflow-hidden">
+    <section ref={ref} id="contact" className="py-36 md:py-48 border-t border-white/[0.06] relative overflow-hidden">
       {/* Soft centered glow */}
       <motion.div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full pointer-events-none"

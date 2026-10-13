@@ -11,22 +11,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // tr (default, no prefix)
     { url: BASE, lastModified: now, changeFrequency: 'monthly', priority: 1 },
     ...slugs.map((slug) => ({
-      url: `${BASE}/projeler/${slug}`,
+      url: `${BASE}/projects/${slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     })),
-    { url: `${BASE}/kvkk`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: `${BASE}/gizlilik`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${BASE}/legal`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${BASE}/privacy`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
     // en
     { url: `${BASE}/en`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     ...slugs.map((slug) => ({
-      url: `${BASE}/en/projeler/${slug}`,
+      url: `${BASE}/en/projects/${slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
-    { url: `${BASE}/en/kvkk`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: `${BASE}/en/gizlilik`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${BASE}/en/legal`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${BASE}/en/privacy`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
   ]
 }

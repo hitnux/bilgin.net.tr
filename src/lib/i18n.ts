@@ -14,8 +14,6 @@ const tr = {
     badge: 'Yazılım · Tasarım · 3D',
     words: [
       'Kendi ürünlerimizi geliştiriyoruz',
-      'Yazılım ve tasarım stüdyosu',
-      'Fikirleri ürüne dönüştürüyoruz',
     ],
     explore: 'Keşfet',
     contact: 'İletişim',
@@ -43,7 +41,7 @@ const tr = {
       {
         title: 'UI/UX Tasarım',
         description:
-          'Ürünlerimizin arayüzünü kendimiz tasarlıyoruz; kapasite ve proje takvimine göre dışarıdan tasarım işi de alıyoruz. Araştırmadan prototipe, wireframe\'den final tasarıma kadar eksiksiz teslim.',
+          'Ürünlerimizin arayüzünü kendimiz tasarlıyoruz; araştırmadan prototipe ve final tasarıma kadar tüm süreci ürünlerimiz için yürütüyoruz.',
         tags: ['Figma', 'Prototip', 'Design System', 'Web & Mobil'],
       },
       {
@@ -72,10 +70,10 @@ const tr = {
     label: 'Süreç',
     title: 'Nasıl çalışıyoruz',
     steps: [
-      { title: 'Keşif', description: 'İhtiyaçlarınızı dinliyor, hedeflerinizi ve kısıtlarınızı anlıyoruz.' },
-      { title: 'Tasarım', description: 'Wireframe ve prototiplerle vizyonu somutlaştırıyor, sizinle birlikte şekillendiriyoruz.' },
+      { title: 'Keşif', description: 'Ürünün ihtiyacını ve hedefini netleştiriyor, kapsamı ve kısıtları belirliyoruz.' },
+      { title: 'Tasarım', description: 'Wireframe ve prototiplerle ürünün vizyonunu somutlaştırıyoruz.' },
       { title: 'Geliştirme', description: 'Modern teknolojilerle temiz, test edilebilir kod yazıyoruz. Süreç boyunca şeffafız.' },
-      { title: 'Teslim & Destek', description: 'Zamanında teslim ediyor, yayından sonraki süreçte yanınızda kalıyoruz.' },
+      { title: 'Teslim & Destek', description: 'Zamanında yayına alıyor, yayından sonraki süreçte ürünü geliştirmeye devam ediyoruz.' },
     ],
   },
   about: {
@@ -95,7 +93,7 @@ const tr = {
   },
   footer: {
     privacy: 'Gizlilik',
-    kvkk: 'KVKK',
+    legal: 'KVKK',
   },
   notFound: {
     label: 'Hata 404',
@@ -132,8 +130,6 @@ const en: Dictionary = {
     badge: 'Software · Design · 3D',
     words: [
       'We build our own products',
-      'Software and design studio',
-      'Turning ideas into products',
     ],
     explore: 'Explore',
     contact: 'Contact',
@@ -161,7 +157,7 @@ const en: Dictionary = {
       {
         title: 'UI/UX Design',
         description:
-          'We design our own product interfaces; depending on capacity and schedule we also take on external design work. Full delivery from research to prototype, wireframe to final design.',
+          'We design our own product interfaces, taking each one from research through prototype and final design.',
         tags: ['Figma', 'Prototype', 'Design System', 'Web & Mobile'],
       },
       {
@@ -190,10 +186,10 @@ const en: Dictionary = {
     label: 'Process',
     title: 'How we work',
     steps: [
-      { title: 'Discovery', description: 'We listen to your needs and understand your goals and constraints.' },
-      { title: 'Design', description: 'We shape the vision with wireframes and prototypes, together with you.' },
+      { title: 'Discovery', description: 'We clarify the product need and goal, and define scope and constraints.' },
+      { title: 'Design', description: 'We shape the product vision with wireframes and prototypes.' },
       { title: 'Development', description: 'We write clean, testable code with modern technologies. Transparent throughout.' },
-      { title: 'Delivery & Support', description: 'We deliver on time and stay by your side after launch.' },
+      { title: 'Delivery & Support', description: 'We ship on time and keep improving the product after launch.' },
     ],
   },
   about: {
@@ -209,11 +205,11 @@ const en: Dictionary = {
     label: 'Contact',
     title: 'Say hello',
     text: 'Let\'s talk about our products, designs or 3D models. We usually respond within 24 hours.',
-    location: 'Burdur, Türkiye',
+    location: 'Burdur, Turkey',
   },
   footer: {
     privacy: 'Privacy',
-    kvkk: 'KVKK',
+    legal: 'Legal',
   },
   notFound: {
     label: 'Error 404',

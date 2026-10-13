@@ -7,16 +7,17 @@ import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { LangToggle } from '@/components/ui/LangToggle'
-import { getDictionary, type Locale } from '@/lib/i18n'
+import { getDictionary, defaultLocale, type Locale } from '@/lib/i18n'
 
 export function Navbar({ lang }: { lang: Locale }) {
   const t = getDictionary(lang)
   const navLinks = [
-    { href: '#hizmetler', label: t.nav.services },
-    { href: '#projeler', label: t.nav.projects },
-    { href: '#hakkinda', label: t.nav.about },
-    { href: '#iletisim', label: t.nav.contact },
+    { href: '#services', label: t.nav.services },
+    { href: '#projects', label: t.nav.projects },
+    { href: '#about', label: t.nav.about },
+    { href: '#contact', label: t.nav.contact },
   ]
+  const home = lang === defaultLocale ? '/' : `/${lang}`
 
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -49,9 +50,9 @@ export function Navbar({ lang }: { lang: Locale }) {
         }`}
       >
         <Link
-          href={`/${lang}`}
+          href={home}
           className="flex items-center gap-2.5 hover:opacity-70 transition-opacity duration-300"
-          aria-label="Bilgin — ana sayfa"
+          aria-label="Bilgin"
         >
           <span className="flex items-center justify-center w-7 h-7 rounded-[6px] bg-white/[0.06] border border-white/30 text-white text-sm font-bold leading-none">
             b

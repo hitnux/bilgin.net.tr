@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { defaultLocale } from '@/lib/i18n'
 
 export function LangToggle({ lang }: { lang: 'tr' | 'en' }) {
   const pathname = usePathname()
-  // /tr/... <-> /en/... ; default (no prefix) treated as tr
+  // /tr/...  (or default /...) <-> /en/... ; default (no prefix) is treated as tr
   const target = lang === 'tr' ? 'en' : 'tr'
-  const rest = pathname.replace(/^\/(tr|en)/, '') || ''
-  const href = target === 'tr' ? (rest || '/') : `/${target}${rest}`
+  const rest = pathname.replace(/^\/(tr|en)(?=\/|$)/, '') || ''
+  const href = target === defaultLocale ? (rest || '/') : `/${target}${rest}`
 
   return (
     <Link

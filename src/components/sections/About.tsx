@@ -25,7 +25,7 @@ export function About({ lang }: { lang: Locale }) {
   const totalWords = words.length
 
   return (
-    <section ref={ref} id="hakkinda" className="py-28 md:py-40 border-t border-white/[0.06]">
+    <section ref={ref} id="about" className="py-28 md:py-40 border-t border-white/[0.06]">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <Reveal>

@@ -1,4 +1,11 @@
-export function JsonLd() {
+import { type Locale } from '@/lib/i18n'
+
+export function JsonLd({ lang }: { lang: Locale }) {
+  const description =
+    lang === 'tr'
+      ? 'Kendi ürünlerimizi geliştiriyoruz — web ve mobil uygulamalar, UI/UX tasarım ve 3D modelleme.'
+      : 'We build our own products — web and mobile apps, UI/UX design and 3D modeling.'
+
   const data = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -19,10 +26,9 @@ export function JsonLd() {
         '@id': 'https://bilgin.net.tr/#website',
         url: 'https://bilgin.net.tr',
         name: 'Bilgin',
-        description:
-          'Kendi ürünlerimizi geliştiriyoruz — web ve mobil uygulamalar, UI/UX tasarım ve 3D modelleme.',
+        description,
         publisher: { '@id': 'https://bilgin.net.tr/#organization' },
-        inLanguage: ['tr', 'en'],
+        inLanguage: [lang],
       },
     ],
   }

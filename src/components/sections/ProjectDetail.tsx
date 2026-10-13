@@ -1,42 +1,21 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight, Check } from 'lucide-react'
-import { projects, getProject } from '@/lib/projects'
-import { getDictionary, locales, defaultLocale, type Locale } from '@/lib/i18n'
+import { getProject } from '@/lib/projects'
+import { getProjectContent } from '@/lib/project-i18n'
+import { getDictionary, defaultLocale, type Locale } from '@/lib/i18n'
 
-interface Props {
-  params: Promise<{ slug: string; lang: string }>
-}
-
-export function generateStaticParams() {
-  return locales.flatMap((lang) =>
-    projects.map((p) => ({ lang, slug: p.slug }))
-  )
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const project = getProject(slug)
-  if (!project) return { title: 'Bilgin' }
-  return {
-    title: `${project.title} — Bilgin`,
-    description: project.description,
-  }
-}
-
-export default async function ProjectPage({ params }: Props) {
-  const { slug, lang: rawLang } = await params
-  const lang: Locale = locales.includes(rawLang as Locale) ? (rawLang as Locale) : defaultLocale
+export function ProjectDetail({ lang, slug }: { lang: Locale; slug: string }) {
   const t = getDictionary(lang)
   const project = getProject(slug)
 
   if (!project) return null
+  const content = getProjectContent(project, lang)
 
   return (
     <main className="relative min-h-screen">
       <div className="container mx-auto px-6 pt-32 pb-24">
         <Link
-          href={`/${lang}#projeler`}
+          href={lang === defaultLocale ? '/#projects' : `/${lang}#projects`}
           className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -46,7 +25,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="mt-10">
           <div className="flex items-center gap-4">
             <span className="text-[11px] text-white/30 tracking-[0.25em] uppercase">
-              {project.category}
+              {content.category}
             </span>
             <span className="text-[11px] text-white/20 font-mono">{project.year}</span>
             {project.status === 'live' ? (
@@ -67,7 +46,7 @@ export default async function ProjectPage({ params }: Props) {
           </h1>
 
           <p className="mt-6 text-lg text-white/50 max-w-2xl leading-relaxed">
-            {project.description}
+            {content.description}
           </p>
         </div>
 
@@ -104,7 +83,7 @@ export default async function ProjectPage({ params }: Props) {
               {t.projectDetail.about}
             </h2>
             <div className="space-y-5">
-              {project.longDescription.map((para, i) => (
+              {content.longDescription.map((para, i) => (
                 <p key={i} className="text-sm md:text-base text-white/60 leading-relaxed">
                   {para}
                 </p>
@@ -115,7 +94,7 @@ export default async function ProjectPage({ params }: Props) {
               {t.projectDetail.features}
             </h2>
             <ul className="space-y-3">
-              {project.features.map((feature) => (
+              {content.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-3 text-sm text-white/60">
                   <Check className="h-4 w-4 text-white/30 mt-0.5 shrink-0" />
                   {feature}
@@ -143,7 +122,7 @@ export default async function ProjectPage({ params }: Props) {
               <div className="mt-8 pt-8 border-t border-white/10 space-y-4 text-sm">
                 <div className="flex justify-between">
                   <span className="text-white/30">{t.projectDetail.category}</span>
-                  <span className="text-white/70">{project.category}</span>
+                  <span className="text-white/70">{content.category}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-white/30">{t.projectDetail.started}</span>

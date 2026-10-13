@@ -1,17 +1,18 @@
 import Link from 'next/link'
-import { getDictionary, type Locale } from '@/lib/i18n'
+import { getDictionary, defaultLocale, type Locale } from '@/lib/i18n'
 
 export function Footer({ lang }: { lang: Locale }) {
   const t = getDictionary(lang)
+  const home = lang === defaultLocale ? '/' : `/${lang}`
 
   return (
     <footer className="border-t border-white/10">
       <div className="container mx-auto px-6 py-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <Link
-            href={`/${lang}`}
+            href={home}
             className="flex items-center gap-2 hover:opacity-70 transition-opacity duration-300"
-            aria-label="Bilgin — ana sayfa"
+            aria-label="Bilgin"
           >
             <span className="flex items-center justify-center w-6 h-6 rounded-[5px] bg-white/[0.06] border border-white/30 text-white text-xs font-bold leading-none">
               b
@@ -39,16 +40,16 @@ export function Footer({ lang }: { lang: Locale }) {
               X
             </a>
             <Link
-              href={`/${lang}/gizlilik`}
+              href={lang === defaultLocale ? '/privacy' : `/${lang}/privacy`}
               className="text-xs text-white/30 hover:text-white/70 transition-colors"
             >
               {t.footer.privacy}
             </Link>
             <Link
-              href={`/${lang}/kvkk`}
+              href={lang === defaultLocale ? '/legal' : `/${lang}/legal`}
               className="text-xs text-white/30 hover:text-white/70 transition-colors"
             >
-              {t.footer.kvkk}
+              {t.footer.legal}
             </Link>
             <a
               href="mailto:mail@bilgin.net.tr"

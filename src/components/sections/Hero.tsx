@@ -104,7 +104,7 @@ export function Hero({ font = 'comfortaa', lang }: { font?: 'quicksand' | 'comfo
         >
           <MagneticButton strength={0.15}>
             <a
-              href="#hizmetler"
+              href="#services"
               className={`group inline-flex items-center gap-2 text-[15px] md:text-base text-white/90 hover:text-white transition-colors ${fontClass}`}
             >
               {t.hero.explore}
@@ -118,7 +118,7 @@ export function Hero({ font = 'comfortaa', lang }: { font?: 'quicksand' | 'comfo
           </MagneticButton>
           <MagneticButton strength={0.15}>
             <a
-              href="#iletisim"
+              href="#contact"
               className={`inline-flex items-center text-[15px] md:text-base text-[#2997ff] hover:underline underline-offset-4 ${fontClass}`}
             >
               {t.hero.contact}

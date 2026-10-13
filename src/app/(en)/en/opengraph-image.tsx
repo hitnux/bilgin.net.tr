@@ -1,9 +1,14 @@
 import { ImageResponse } from 'next/og'
 
-export const alt = 'Bilgin — Yazılım ve Tasarım'
+export const alt = 'Bilgin — We build our own products'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 export const dynamic = 'force-static'
+
+const c = {
+  badge: 'Software · Design · 3D',
+  sub: 'Web & Mobile Apps · UI/UX Design · 3D Modeling',
+}
 
 function Star({ top, left, size, opacity }: { top: number; left: number; size: number; opacity: number }) {
   return (
@@ -23,7 +28,7 @@ function Star({ top, left, size, opacity }: { top: number; left: number; size: n
   )
 }
 
-export default async function Image() {
+export default function Image() {
   return new ImageResponse(
     (
       <div
@@ -72,10 +77,10 @@ export default async function Image() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           <div style={{ display: 'flex', color: 'rgba(255,255,255,0.95)', fontSize: 76, fontWeight: 600, letterSpacing: -2, lineHeight: 1.1 }}>
-            Yazılım · Tasarım · 3D
+            {c.badge}
           </div>
           <div style={{ display: 'flex', color: 'rgba(255,255,255,0.45)', fontSize: 30, fontWeight: 400 }}>
-            Web & Mobil Uygulamalar · UI/UX Tasarım · 3D Modelleme
+            {c.sub}
           </div>
         </div>
 

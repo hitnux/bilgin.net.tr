@@ -12,7 +12,7 @@ export function Services({ lang }: { lang: Locale }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="hizmetler" className="py-24 md:py-32">
+    <section id="services" className="py-24 md:py-32">
       <div className="container mx-auto px-6">
         <Reveal>
           <div className="flex items-end justify-between mb-14">
