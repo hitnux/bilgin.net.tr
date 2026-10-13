@@ -1,47 +1,32 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { getDictionary, type Locale } from '@/lib/i18n'
 
-const items = [
-  'Web Geliştirme',
-  'Mobil Uygulama',
-  'UI/UX Tasarım',
-  'E-Ticaret',
-  'Danışmanlık',
-  'Next.js',
-  'React',
-  'TypeScript',
-]
+export function Marquee({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang)
+  const items = t.marquee
 
-export function Marquee() {
   return (
-    <div className="relative border-y border-white/10 py-6 overflow-hidden group">
+    <div className="relative border-y border-white/[0.06] py-5 overflow-hidden group">
       {/* Edge fades */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
       <motion.div
-        className="flex items-center gap-16 whitespace-nowrap"
+        className="flex items-center gap-14 whitespace-nowrap"
         animate={{ x: ['0%', '-50%'] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
       >
         {[...items, ...items].map((item, i) => (
-          <div key={i} className="flex items-center gap-16">
+          <div key={i} className="flex items-center gap-14">
             <motion.span
-              className="text-sm text-white/40 tracking-wide group-hover:text-white/70 transition-colors"
-              whileHover={{ scale: 1.1 }}
+              className="text-[13px] text-white/35 tracking-wide group-hover:text-white/60 transition-colors duration-500"
+              whileHover={{ scale: 1.05 }}
             >
               {item}
             </motion.span>
-            <motion.span
-              className="w-1 h-1 rounded-full bg-white/20"
-              animate={{ scale: [1, 1.5, 1] }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: (i % 8) * 0.25,
-              }}
-            />
+            <span className="w-[3px] h-[3px] rounded-full bg-white/15" />
           </div>
         ))}
       </motion.div>
